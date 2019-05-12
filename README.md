@@ -18,7 +18,7 @@ opencv
 
 pillow
 
-**Should refer to Anaconda Cloud ** https://anaconda.org/anaconda/repo
+**Should refer to Anaconda Cloud** https://anaconda.org/anaconda/repo
 
 nibabel
 
