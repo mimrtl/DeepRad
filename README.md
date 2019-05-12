@@ -4,6 +4,34 @@ This project is for the development of software related to medical imaging using
 
 ## 0. Requirements
 
+**Directly use conda**
+
+tensorflow
+
+keras
+
+tensorflow-gpu
+
+pyqt
+
+opencv
+
+pillow
+
+**Should refer to Anaconda Cloud ** https://anaconda.org/anaconda/repo
+
+nibabel
+
+qimage2ndarray
+
+simpleitk
+
+nilearn
+
+**pip**
+
+tables
+
 
 
 ## 1. Quick Use
@@ -89,3 +117,23 @@ self.config={
 ## 2. Developer Mode
 
 In **Developer Mode**, it provides a framework for training and evaluation. Users can replace some of the modules by using their own codes. It will be more flexible and require users have a coding background.
+
+## Q&A
+
+![image-20190512120000848](/Users/zhangjinnian/Documents/UWmadison/1Project/DeepRad/image/README//image-20190512120000848.png)
+
+Solutions:
+
+1. Add the following codes in `main.py`
+
+```python
+import os
+os.environ['KMP_DUPLICATE_LIB_OK']='True'
+```
+
+2. Install the following packages
+
+```
+conda install nomkl
+```
+
