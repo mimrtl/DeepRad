@@ -120,7 +120,7 @@ In **Developer Mode**, it provides a framework for training and evaluation. User
 
 ## Q&A
 
-![image-20190512120000848](/Users/zhangjinnian/Documents/UWmadison/1Project/DeepRad/image/README//image-20190512120000848.png)
+![image-20190512121043729](image/README/image-20190512121043729-7681043.png)
 
 Solutions:
 
