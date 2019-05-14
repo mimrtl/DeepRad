@@ -69,6 +69,27 @@ class mainwindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.pushButton_8.clicked.connect(self.openLossDialog)
         self.pushButton_9.clicked.connect(self.openOptimizerDialog)
 
+        self.pushButton.clicked.connect(self.setDataFolderPath)
+        self.pushButton_6.clicked.connect(self.setValidationFolderPath)
+        self.pushButton_7.clicked.connect(self.setValidationIndexFolderPath)
+        self.pushButton_4.clicked.connect(self.setOutputFolderPath)
+
+    def setDataFolderPath(self):
+        download_path = QtWidgets.QFileDialog.getExistingDirectory(self)
+        self.lineEdit_8.setText(download_path)
+
+    def setValidationFolderPath(self):
+        download_path = QtWidgets.QFileDialog.getExistingDirectory(self)
+        self.lineEdit_12.setText(download_path)
+
+    def setValidationIndexFolderPath(self):
+        download_path = QtWidgets.QFileDialog.getExistingDirectory(self)
+        self.lineEdit_13.setText(download_path)
+
+    def setOutputFolderPath(self):
+        download_path = QtWidgets.QFileDialog.getExistingDirectory(self)
+        self.lineEdit_9.setText(download_path)
+
     def clickStart(self):
         self.changeStdout()
         self.getCurrentConfigFromGUI()
@@ -294,7 +315,7 @@ class mainwindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.config_classification.config['modality_t1ce'] = self.checkBox_6.isChecked()
         self.config_classification.config['modality_flair'] = self.checkBox_7.isChecked()
         self.config_classification.config['modality_t2'] = self.checkBox_8.isChecked()
-        self.config_classification.config['label_folder'] = self.lineEdit_11.text()
+        #self.config_classification.config['label_folder'] = self.lineEdit_11.text()
         self.config_classification.config['is_split'] = self.radioButton.isChecked()
         self.config_classification.config['is_validation_folder'] = self.radioButton_2.isChecked()
         self.config_classification.config['is_valid_index'] = self.radioButton_3.isChecked()

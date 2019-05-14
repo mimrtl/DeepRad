@@ -218,8 +218,8 @@ class Config_Segmentation(object):
             self.check_result += [ERROR_INFO_COLLECTION['input_folder']]
         if isAllFalseMultiChoice(self.getListOfAllModalityStatus()):
             self.check_result += [ERROR_INFO_COLLECTION['modality_used']]
-        if not isValidPath(self.config["label_folder"]):
-            self.check_result += [ERROR_INFO_COLLECTION['label_folder']]
+        #if not isValidPath(self.config["label_folder"]):
+        #    self.check_result += [ERROR_INFO_COLLECTION['label_folder']]
         if self.config["is_split"]:
             if not isValidFloatNumberString(self.config["validation_ratio"], min = 0.0, max = 1.0):
                 self.check_result += [ERROR_INFO_COLLECTION['validation_ratio']]
@@ -455,8 +455,8 @@ class Config_Classification(object):
             self.check_result += [ERROR_INFO_COLLECTION['input_folder']]
         if isAllFalseMultiChoice(self.getListOfAllModalityStatus()):
             self.check_result += [ERROR_INFO_COLLECTION['modality_used']]
-        if not isValidPath(self.config["label_folder"]):
-            self.check_result += [ERROR_INFO_COLLECTION['label_folder']]
+        #if not isValidPath(self.config["label_folder"]):
+        #    self.check_result += [ERROR_INFO_COLLECTION['label_folder']]
         if self.config["is_split"]:
             if not isValidFloatNumberString(self.config["validation_ratio"], min=0.0, max=1.0):
                 self.check_result += [ERROR_INFO_COLLECTION['validation_ratio']]
