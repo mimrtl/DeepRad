@@ -11,6 +11,7 @@ from nilearn.image import reorder_img, new_img_like
 import cv2
 from PIL import Image
 import h5py
+import csv
 
 from include.normalization import normalizeDataStorage
 
@@ -138,6 +139,22 @@ def readImage(in_file, image_shape=None, interpolation='linear'):
         return resize(image, new_shape=image_shape, interpolation=interpolation)
     else:
         return image
+
+def readCSV(in_file):
+    labels = list()
+    with open(in_file, "r") as csvfile:
+        readCSV = csv.reader(csvfile, delimiter=',')
+        for row in readCSV:
+            labels.append(row)
+    return np.squeeze(labels)
+
+def readDictFromCSV(in_file):
+    labels = dict()
+    with open(in_file, "r") as csvfile:
+        readCSV = csv.reader(csvfile, delimiter=',')
+        for row in readCSV:
+            labels[row[0]] = np.asarray(row[1:])
+    return labels
 
 def fixShape(image):
     if image.shape[-1] == 1:

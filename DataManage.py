@@ -12,7 +12,17 @@ import h5py
 
 from DataManagement import Ui_MainWindow
 import dataUtilities as du
+from include.utils import isValidPath, isValidFloatNumberString,\
+    str2float, isValidRelation, isValidIntNumberString, str2int
+from data_management.data_management import DataManagementClass
 
+
+def listOfStr2Str(str_list, seperator = ""):
+    string = ""
+    for item in str_list:
+        string += seperator
+        string += item
+    return string
 
 class mainwindow(QtWidgets.QMainWindow, Ui_MainWindow):
     def __init__(self, parent = None):
@@ -35,12 +45,17 @@ class mainwindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.pushButton_4.clicked.connect(self.firstSlice)
         self.pushButton_5.clicked.connect(self.lastSlice)
         self.pushButton_9.clicked.connect(self.selectedSlice)
-        self.pushButton_7.clicked.connect(self.setSaveFileName)
-        self.pushButton_8.clicked.connect(self.convert)
+        self.pushButton_7.clicked.connect(self.setOutputPath)
+        self.pushButton_8.clicked.connect(self.convertData)
         self.pushButton_10.clicked.connect(self.rotate)
 
         self.comboBox.activated.connect(self.chooseFile)
         self.comboBox_4.activated.connect(self.chooseSliceOrient)
+
+        self.comboBox_3.activated.connect(self.activateMinMaxConfiguration)
+        self.comboBox_5.setDisabled(True)
+        self.lineEdit_4.setDisabled(True)
+        self.lineEdit_5.setDisabled(True)
 
         self.index = 0
         self.numImagePerVolume = 0
@@ -48,6 +63,144 @@ class mainwindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.slice_orient = 'Axial'
         self.current_file_name = ''
         self.rotate_degree = 0
+
+    def activateMinMaxConfiguration(self):
+        if self.comboBox_3.currentText() == "None":
+            self.comboBox_5.setDisabled(True)
+        else:
+            self.comboBox_5.setEnabled(True)
+
+        if self.comboBox_3.currentText() == "interval":
+            self.lineEdit_4.setEnabled(True)
+            self.lineEdit_5.setEnabled(True)
+        else:
+            self.lineEdit_4.setDisabled(True)
+            self.lineEdit_5.setDisabled(True)
+
+
+    def initializeConfiguration(self):
+        self.config = dict()
+        self.check_result = list()
+        self.check_success = True
+        self.transform_success = True
+
+    def getConfiguration(self):
+        self.config["data_folder"] = self.lineEdit_8.text()
+        self.config["output_folder"] = self.lineEdit_9.text()
+        self.config["normalize_mode"] = self.comboBox_3.currentText()
+        self.config["normalize_range"] = self.comboBox_5.currentText()
+        self.config["min_value"] = self.lineEdit_4.text()
+        self.config["max_value"] = self.lineEdit_5.text()
+        self.config["row"] = self.lineEdit_6.text()
+        self.config["col"] = self.lineEdit_7.text()
+        self.config["channel"] = self.lineEdit_10.text()
+
+    def getImageShape(self):
+        return (self.config["row"], self.config["col"], self.config["channel"])
+
+    def showErrorDetailInTraining(self, message):
+        self.popoutErrorMessageBox("Failed to start training\n Please check the configuration!\n\n %s"%message)
+
+
+    def checkConfiguration(self):
+        if not isValidPath(self.config["data_folder"]):
+            self.check_result.append("Data folder does not exist!")
+        if not isValidPath(self.config["output_folder"]):
+            #self.showInfoInTextBrowser("Warning: output folder does not exist! Will create the folder...")
+            self.check_result.append("Output folder does not exist!")
+        if not isValidFloatNumberString(self.config["min_value"]):
+            self.check_result.append("Invalid input of min value!")
+        if not isValidFloatNumberString(self.config["max_value"]):
+            self.check_result.append("Invalid input of max value!")
+        if not isValidIntNumberString(self.config["row"], min=1):
+            self.check_result.append("Invalid input of row number (>=1, integer)!")
+        if not isValidIntNumberString(self.config["col"], min=1):
+            self.check_result.append("Invalid input of col number (>=1, integer)!")
+        if not isValidIntNumberString(self.config["channel"], min=1):
+            self.check_result.append("Invalid input of channel number (>=1, integer)!")
+        if len(self.check_result)>0:
+            self.check_success = False
+
+    def TransformConfiguration(self):
+        if self.check_success:
+            self.config["min_value"] = str2float(self.config["min_value"])
+            self.config["max_value"] = str2float(self.config["max_value"])
+            self.config["row"] = str2int(self.config["row"])
+            self.config["col"] = str2int(self.config["col"])
+            self.config["channel"] = str2int(self.config["channel"])
+            if self.config["normalize_mode"] == 'None':
+                self.config["normalize_mode"] = None
+            if not isValidRelation(min=self.config["min_value"], max=self.config["max_value"]):
+                self.check_result.append("Max value is less than min value!")
+            if len(self.check_result)>0:
+                self.transform_success = False
+        else:
+            self.showErrorConfigDetail()
+
+    def startConvert(self):
+        if self.check_success and self.transform_success:
+            data_management = DataManagementClass(data_path=self.config["data_folder"],
+                                                  output_path=self.config["output_folder"],
+                                                  image_shape=self.getImageShape(),
+                                                  min_value=self.config["min_value"],
+                                                  max_value=self.config["max_value"],
+                                                  normalization_mode=self.config["normalize_mode"],
+                                                  normalization_range=self.config["normalize_range"])
+            try:
+                data_management.startConvert()
+                print("Data HDF5 file successfully generated!")
+                self.showInfoInTextBrowser("Data HDF5 file successfully generated!")
+            except:
+                self.popoutErrorMessageBox(data_management.error_message)
+
+    def popoutErrorMessageBox(self, message):
+        QtWidgets.QMessageBox.critical(self, "Error", message)
+
+    def showInfoInTextBrowser(self, message):
+        self.textBrowser.append(message)
+        QtWidgets.QApplication.processEvents()
+
+    def showErrorConfigDetail(self):
+        self.popoutErrorMessageBox(self.getAllMessageString())
+
+    def getAllMessageString(self):
+        return listOfStr2Str(self.check_result, seperator='\n')
+
+    def convertData(self):
+        self.initializeConfiguration()
+        self.getConfiguration()
+        self.checkConfiguration()
+        self.TransformConfiguration()
+        self.startConvert()
+
+    '''def convert(self):
+        self.textBrowser.append('-' * 60)
+        self.textBrowser.append('Start converting...')
+        # overwrite the existing file
+        flag = True
+        try:
+            f = h5py.File(self.filename, 'w')
+            f.close()
+        except ValueError:
+            QtWidgets.QMessageBox.critical(self, "Error", '\nWrong output path!\n')
+            flag = False
+
+        if flag:
+            files = glob.glob(os.path.join(self.download_path, '*.nii.gz'))
+            # imageAll = np.zeros(len(files)*self.numImagePerVolume, self.image.shape[0], self.image.shape[1])
+            # savefile = os.path.join(self.output_path, 'data.hdf5')
+            f = h5py.File(self.filename, 'a')
+            count = -1
+            for file in files:
+                count += 1
+                name = file.split('/')[-1]
+                self.textBrowser.append(name)
+                image = self.loadFile(file)
+                f['/%d/slices' % count] = image
+                # imageAll[count*self.numImagePerVolume: (count+1)*self.numImagePerVolume] = image
+            f.close()
+            self.textBrowser.append('Done!')
+            self.textBrowser.append('-' * 60)'''
 
     def showSlice(self):
         self.graphicsView.scene = QtWidgets.QGraphicsScene()
@@ -129,35 +282,6 @@ class mainwindow(QtWidgets.QMainWindow, Ui_MainWindow):
     def setSaveFileName(self):
         self.filename, filetype = QtWidgets.QFileDialog.getSaveFileName(self, "Save to file",filter="All Files (*);;HDF5 Files (*.hdf5)")
         self.lineEdit_9.setText(self.filename)
-
-    def convert(self):
-        self.textBrowser.append('-'*60)
-        self.textBrowser.append('Start converting...')
-        # overwrite the existing file
-        flag = True
-        try:
-            f = h5py.File(self.filename, 'w')
-            f.close()
-        except ValueError:
-            QtWidgets.QMessageBox.critical(self, "Error", '\nWrong output path!\n')
-            flag = False
-
-        if flag:
-            files = glob.glob(os.path.join(self.download_path, '*.nii.gz'))
-            #imageAll = np.zeros(len(files)*self.numImagePerVolume, self.image.shape[0], self.image.shape[1])
-            #savefile = os.path.join(self.output_path, 'data.hdf5')
-            f = h5py.File(self.filename, 'a')
-            count = -1
-            for file in files:
-                count += 1
-                name = file.split('/')[-1]
-                self.textBrowser.append(name)
-                image = self.loadFile(file)
-                f['/%d/slices'%count] = image
-                #imageAll[count*self.numImagePerVolume: (count+1)*self.numImagePerVolume] = image
-            f.close()
-            self.textBrowser.append('Done!')
-            self.textBrowser.append('-'*60)
 
 
 

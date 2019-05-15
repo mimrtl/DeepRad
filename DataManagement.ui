@@ -19,7 +19,7 @@
      <rect>
       <x>40</x>
       <y>10</y>
-      <width>471</width>
+      <width>701</width>
       <height>41</height>
      </rect>
     </property>
@@ -36,7 +36,7 @@
     <property name="geometry">
      <rect>
       <x>40</x>
-      <y>70</y>
+      <y>60</y>
       <width>91</width>
       <height>21</height>
      </rect>
@@ -49,7 +49,7 @@
     <property name="geometry">
      <rect>
       <x>40</x>
-      <y>100</y>
+      <y>90</y>
       <width>351</width>
       <height>21</height>
      </rect>
@@ -65,7 +65,7 @@
     <property name="geometry">
      <rect>
       <x>400</x>
-      <y>100</y>
+      <y>90</y>
       <width>21</width>
       <height>21</height>
      </rect>
@@ -274,9 +274,9 @@
     <property name="geometry">
      <rect>
       <x>40</x>
-      <y>300</y>
+      <y>330</y>
       <width>381</width>
-      <height>271</height>
+      <height>241</height>
      </rect>
     </property>
    </widget>
@@ -284,9 +284,9 @@
     <property name="geometry">
      <rect>
       <x>30</x>
-      <y>140</y>
+      <y>120</y>
       <width>401</width>
-      <height>141</height>
+      <height>191</height>
      </rect>
     </property>
     <property name="title">
@@ -338,7 +338,7 @@
      <property name="geometry">
       <rect>
        <x>320</x>
-       <y>107</y>
+       <y>160</y>
        <width>81</width>
        <height>31</height>
       </rect>
@@ -365,7 +365,7 @@
       <rect>
        <x>110</x>
        <y>76</y>
-       <width>201</width>
+       <width>121</width>
        <height>31</height>
       </rect>
      </property>
@@ -376,79 +376,209 @@
      </item>
      <item>
       <property name="text">
-       <string>Interval [0, 1] (local)</string>
+       <string>interval</string>
       </property>
      </item>
      <item>
       <property name="text">
-       <string>Interval [0, 1] (global)</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>Interval [min, max] (local)</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>Interval [min, max] (global)</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>Gaussian (mu, sigma)</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string/>
+       <string>standard</string>
       </property>
      </item>
     </widget>
     <widget class="QLabel" name="label_11">
      <property name="geometry">
       <rect>
-       <x>10</x>
-       <y>110</y>
-       <width>51</width>
+       <x>240</x>
+       <y>80</y>
+       <width>41</width>
        <height>21</height>
       </rect>
      </property>
      <property name="text">
-      <string>Min/mu:</string>
+      <string>Min:</string>
      </property>
     </widget>
     <widget class="QLineEdit" name="lineEdit_4">
      <property name="geometry">
       <rect>
-       <x>70</x>
-       <y>110</y>
+       <x>270</x>
+       <y>80</y>
        <width>41</width>
        <height>21</height>
       </rect>
+     </property>
+     <property name="text">
+      <string>0.0</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
      </property>
     </widget>
     <widget class="QLabel" name="label_12">
      <property name="geometry">
       <rect>
-       <x>160</x>
-       <y>110</y>
-       <width>81</width>
+       <x>320</x>
+       <y>80</y>
+       <width>41</width>
        <height>21</height>
       </rect>
      </property>
      <property name="text">
-      <string>Max/sigma:</string>
+      <string>Max:</string>
      </property>
     </widget>
     <widget class="QLineEdit" name="lineEdit_5">
      <property name="geometry">
       <rect>
-       <x>240</x>
-       <y>110</y>
+       <x>350</x>
+       <y>80</y>
        <width>41</width>
        <height>21</height>
       </rect>
+     </property>
+     <property name="text">
+      <string>1.0</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_14">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>110</y>
+       <width>131</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Normalization Type:</string>
+     </property>
+    </widget>
+    <widget class="QComboBox" name="comboBox_5">
+     <property name="geometry">
+      <rect>
+       <x>140</x>
+       <y>110</y>
+       <width>111</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <item>
+      <property name="text">
+       <string>global</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>per_slice</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>per_volume</string>
+      </property>
+     </item>
+    </widget>
+    <widget class="QLabel" name="label_15">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>140</y>
+       <width>281</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Image shape:</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="lineEdit_6">
+     <property name="geometry">
+      <rect>
+       <x>50</x>
+       <y>160</y>
+       <width>41</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>256</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="lineEdit_7">
+     <property name="geometry">
+      <rect>
+       <x>140</x>
+       <y>160</y>
+       <width>41</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>256</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="lineEdit_10">
+     <property name="geometry">
+      <rect>
+       <x>260</x>
+       <y>160</y>
+       <width>41</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>256</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_16">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>160</y>
+       <width>31</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>row:</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_17">
+     <property name="geometry">
+      <rect>
+       <x>110</x>
+       <y>160</y>
+       <width>31</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>col:</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_18">
+     <property name="geometry">
+      <rect>
+       <x>200</x>
+       <y>160</y>
+       <width>51</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>channel:</string>
      </property>
     </widget>
    </widget>
