@@ -6,7 +6,7 @@ This project is for the development of software related to medical imaging using
 Choose a method from (a) or (b) to install the dependent packages.
 ### a. Create a new 'conda' virtual environment **(recommendation)**
 ```
-conda create --name DeepRad --file requirements.yml
+conda env create --name DeepRad --file requirements.yml
 ```
 ### b. Install dependeny one by one
 ```
