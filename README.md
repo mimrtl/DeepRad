@@ -23,6 +23,7 @@ conda install -c conda-forge nilearn
 conda install -c conda-forge pytables
 conda install -c anaconda nomkl 
 ```
+<!---
 <> **Directly use conda**
 <>tensorflow
 <>keras
@@ -37,7 +38,7 @@ conda install -c anaconda nomkl
 <>nilearn
 <>**pip**
 <>tables
-
+-->
 
 ## 1. Quick Use
 
