@@ -3,35 +3,40 @@
 This project is for the development of software related to medical imaging using deep learning. DeepRad has two different modes (quick use and developer mode), which are for different goals and researchers with different level of programming.
 
 ## 0. Requirements
-
-**Directly use conda**
-
-tensorflow
-
-keras
-
-tensorflow-gpu
-
-pyqt
-
-opencv
-
-pillow
-
-**Should refer to Anaconda Cloud** https://anaconda.org/anaconda/repo
-
-nibabel
-
-qimage2ndarray
-
-simpleitk
-
-nilearn
-
-**pip**
-
-tables
-
+Choose a method from (a) or (b) to install the dependent packages.
+### a. Create a new 'conda' virtual environment **(recommendation)**
+'''
+conda create --name DeepRad --file requirements.yml
+'''
+### b. Install dependeny one by one
+'''
+conda install -c anaconda tensorflow-gpu (for GPU user)
+conda install -c anaconda tensorflow (for CPU user)
+conda install -c anaconda keras-gpu 
+conda install -c conda-forge pyqt 
+conda install -c conda-forge pillow 
+conda install -c conda-forge opencv 
+conda install -c conda-forge nibabel
+conda install -c conda-forge qimage2ndarray
+conda install -c simpleitk simpleitk
+conda install -c conda-forge nilearn
+conda install -c conda-forge pytables
+conda install -c anaconda nomkl 
+'''
+#**Directly use conda**
+#tensorflow
+#keras
+#tensorflow-gpu
+#pyqt
+#opencv
+#pillow
+#**Should refer to Anaconda Cloud** https://anaconda.org/anaconda/repo
+#nibabel
+#qimage2ndarray
+#simpleitk
+#nilearn
+#**pip**
+#tables
 
 
 ## 1. Quick Use
