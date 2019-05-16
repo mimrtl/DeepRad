@@ -279,7 +279,9 @@ After setting parameters, click **Convert**. Attention: it may take a few minute
 ```
  ./DeepRad/Data_folder/train/data.hdf5
 ```
-## Step 2. Main function (Take seg)
+## Step 2. Main function (Take segmentation as an example)
+
+Testing computer: 16G memory and GTX 1080 GPU
 
 Click **Segmentation** in main window. And we can see 5 steps here. Now we are sharing the recommendation setting, and use the default setting if not mentioned.
 
@@ -298,7 +300,7 @@ Click **Segmentation** in main window. And we can see 5 steps here. Now we are s
     - Enable: Not
 ### 4. Training Configuration
     - Batch size:
-        - Training data: 9
+        - Training data: 8
         - Validation data: (Don't fill anything here)
     - Epoch: (We can fill as many as want)
 ### 5. Output configuration
