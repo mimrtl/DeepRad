@@ -2,6 +2,10 @@
 
 This project is for the development of software related to medical imaging using deep learning. DeepRad has two different modes (quick use and developer mode), which are for different goals and researchers with different level of programming.
 
+
+
+This is the first version of the DeepRad. Currently we support the training process of 3D segmentation. We will add more features to make DeepRad more powerful.
+
 ## Step 0. Installation of Dependency
 python 3.6 is recommended.
 
