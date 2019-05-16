@@ -851,7 +851,7 @@
         </font>
        </property>
        <property name="text">
-        <string>Dice loss+smooth=1.0</string>
+        <string>dice loss</string>
        </property>
       </widget>
       <widget class="QPushButton" name="pushButton_9">

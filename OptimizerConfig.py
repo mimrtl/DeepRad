@@ -43,6 +43,7 @@ class OptimizerDialog(QtWidgets.QDialog, Ui_Dialog):
         result = self.check()
         if result['Valid_config']:
             print('Optimizer Config Done!')
+            self.parent().updateOptimizerLabelValue()
             self.hide()
         else:
             QtWidgets.QMessageBox.critical(self, "Error", '\nWrong Configuration!\n' + result['Message'])

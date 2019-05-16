@@ -74,6 +74,17 @@ class mainwindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.pushButton_7.clicked.connect(self.setValidationIndexFolderPath)
         self.pushButton_4.clicked.connect(self.setOutputFolderPath)
 
+        self.lineEdit_18.textChanged.connect(self.showImageRow)
+        self.lineEdit_19.textChanged.connect(self.showImageCol)
+        self.lineEdit_4.setDisabled(True)
+        self.lineEdit_5.setDisabled(True)
+
+    def showImageRow(self):
+        self.lineEdit_4.setText(self.lineEdit_18.text())
+
+    def showImageCol(self):
+        self.lineEdit_5.setText(self.lineEdit_19.text())
+
     def setDataFolderPath(self):
         download_path = QtWidgets.QFileDialog.getExistingDirectory(self)
         self.lineEdit_8.setText(download_path)
@@ -374,6 +385,12 @@ class mainwindow(QtWidgets.QMainWindow, Ui_MainWindow):
         if self.LossConfig.isDestroyed:
             self.LossConfig = LossConfig.LossDialog(self)
         self.LossConfig.show()
+
+    def updateLossLabelValue(self):
+        self.label_19.setText(self.LossConfig.LossConfig["loss"])
+
+    def updateOptimizerLabelValue(self):
+        self.label_20.setText(self.OptimizerConfig.OptimizerConfig["optimizer"])
 
     def openOptimizerDialog(self):
         self.updateOptimizerConfig()

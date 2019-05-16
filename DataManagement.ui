@@ -491,7 +491,7 @@
       </rect>
      </property>
      <property name="text">
-      <string>Image shape:</string>
+      <string>Output image shape:</string>
      </property>
     </widget>
     <widget class="QLineEdit" name="lineEdit_6">
@@ -504,7 +504,7 @@
       </rect>
      </property>
      <property name="text">
-      <string>256</string>
+      <string/>
      </property>
      <property name="alignment">
       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -520,7 +520,7 @@
       </rect>
      </property>
      <property name="text">
-      <string>256</string>
+      <string/>
      </property>
      <property name="alignment">
       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -536,7 +536,7 @@
       </rect>
      </property>
      <property name="text">
-      <string>256</string>
+      <string/>
      </property>
      <property name="alignment">
       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>

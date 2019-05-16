@@ -41,6 +41,7 @@ class LossDialog(QtWidgets.QDialog, Ui_Dialog):
         result = self.check()
         if result['Valid_config']:
             print('Loss Config Done!')
+            self.parent().updateLossLabelValue()
             self.hide()
         else:
             QtWidgets.QMessageBox.critical(self, "Error", '\nWrong Configuration!\n' + result['Message'])

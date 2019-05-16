@@ -428,7 +428,7 @@ class Ui_MainWindow(object):
         self.label_7.setText(_translate("MainWindow", "Epoch"))
         self.lineEdit_3.setText(_translate("MainWindow", "10"))
         self.pushButton_8.setText(_translate("MainWindow", "Options..."))
-        self.label_19.setText(_translate("MainWindow", "Dice loss+smooth=1.0"))
+        self.label_19.setText(_translate("MainWindow", "dice loss"))
         self.pushButton_9.setText(_translate("MainWindow", "Options..."))
         self.label_20.setText(_translate("MainWindow", "Adam"))
         self.label_21.setText(_translate("MainWindow", "Drop factor"))
