@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="239aef0a-1e22-459f-8aa4-04d63bda25c9" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/funcs/DeepRad_classification_func.py" beforeDir="false" afterPath="$PROJECT_DIR$/funcs/DeepRad_classification_func.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/funcs/DeepRad_segmentation_func.py" beforeDir="false" afterPath="$PROJECT_DIR$/funcs/DeepRad_segmentation_func.py" afterDir="false" />
-    </list>
+    <list default="true" id="239aef0a-1e22-459f-8aa4-04d63bda25c9" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,13 +21,13 @@
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="json" value="1" />
-          <entry key="py" value="14" />
+          <entry key="py" value="16" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="JSON" value="1" />
-          <entry key="Python" value="14" />
+          <entry key="Python" value="16" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
@@ -50,7 +47,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/data_management/data_management.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="432">
+            <state relative-caret-position="3970">
               <caret line="355" column="35" lean-forward="true" selection-start-line="355" selection-start-column="35" selection-end-line="355" selection-end-column="35" />
             </state>
           </provider>
@@ -65,12 +62,26 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/funcs/DeepRad_classification_func.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="190">
               <caret line="254" column="13" lean-forward="true" selection-start-line="254" selection-start-column="13" selection-end-line="254" selection-end-column="13" />
             </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/GUI/DataManagement.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-3848" />
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/funcs/DataManage.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-2349" />
           </provider>
         </entry>
       </file>
@@ -142,11 +153,6 @@
               <item name="DeepRad" type="b2602c69:ProjectViewProjectNode" />
               <item name="DeepRad" type="462c0819:PsiDirectoryNode" />
               <item name="funcs" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="DeepRad" type="b2602c69:ProjectViewProjectNode" />
-              <item name="DeepRad" type="462c0819:PsiDirectoryNode" />
-              <item name="GUI" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="DeepRad" type="b2602c69:ProjectViewProjectNode" />
@@ -278,12 +284,12 @@
     <frame x="0" y="23" width="1397" height="877" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24927326" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24927326" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.21146497" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.21146497" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -317,13 +323,6 @@
     <entry file="file://$PROJECT_DIR$/DataManage.py" />
     <entry file="file://$PROJECT_DIR$/DataManagement.py" />
     <entry file="file://$PROJECT_DIR$/VisualizationTool.py" />
-    <entry file="file://$PROJECT_DIR$/data_management/data_management.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="432">
-          <caret line="355" column="35" lean-forward="true" selection-start-line="355" selection-start-column="35" selection-end-line="355" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/segmentation/segmentation_train.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1955">
@@ -353,6 +352,23 @@
         <state relative-caret-position="190">
           <caret line="254" column="13" lean-forward="true" selection-start-line="254" selection-start-column="13" selection-end-line="254" selection-end-column="13" />
         </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/data_management/data_management.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3970">
+          <caret line="355" column="35" lean-forward="true" selection-start-line="355" selection-start-column="35" selection-end-line="355" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/GUI/DataManagement.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-3848" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/funcs/DataManage.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2349" />
       </provider>
     </entry>
   </component>

@@ -76,9 +76,9 @@
       <widget class="QLineEdit" name="lineEdit_8">
        <property name="geometry">
         <rect>
-         <x>140</x>
+         <x>120</x>
          <y>40</y>
-         <width>301</width>
+         <width>321</width>
          <height>21</height>
         </rect>
        </property>
@@ -120,7 +120,7 @@
         </font>
        </property>
        <property name="text">
-        <string>Data folder path</string>
+        <string>Data file path:</string>
        </property>
       </widget>
       <widget class="QRadioButton" name="radioButton">
