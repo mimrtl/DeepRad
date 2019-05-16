@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="239aef0a-1e22-459f-8aa4-04d63bda25c9" name="Default Changelist" comment="" />
+    <list default="true" id="239aef0a-1e22-459f-8aa4-04d63bda25c9" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data_example/data.h5" beforeDir="false" afterPath="$PROJECT_DIR$/data_example/data.h5" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data_management/data_management.py" beforeDir="false" afterPath="$PROJECT_DIR$/data_management/data_management.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/segmentation_config.json" beforeDir="false" afterPath="$PROJECT_DIR$/result/segmentation_config.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/training_ids.pkl" beforeDir="false" afterPath="$PROJECT_DIR$/result/training_ids.pkl" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -12,100 +18,66 @@
     <session id="1368081507">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="7" />
-          <entry key="project.open.time.1" value="5" />
+          <entry key="project.closed" value="9" />
+          <entry key="project.open.time.1" value="7" />
           <entry key="project.open.time.2" value="2" />
-          <entry key="project.opened" value="7" />
+          <entry key="project.opened" value="9" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="py" value="11" />
+          <entry key="json" value="1" />
+          <entry key="py" value="12" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="Python" value="11" />
+          <entry key="JSON" value="1" />
+          <entry key="Python" value="12" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="py" value="314" />
+          <entry key="py" value="325" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="Python" value="314" />
+          <entry key="Python" value="325" />
         </counts>
       </usages-collector>
     </session>
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/test.py">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/testfunc.py">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/visualization.py">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/DeepRad_classification.py">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/DeepRad_classification_func.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="5219">
-              <caret line="318" column="45" lean-forward="true" selection-start-line="318" selection-start-column="45" selection-end-line="318" selection-end-column="45" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/configuration.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="8755">
-              <caret line="516" column="21" selection-start-line="516" selection-start-column="21" selection-end-line="516" selection-end-column="21" />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/data_management/data_management.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="273">
-              <caret line="242" column="39" lean-forward="true" selection-start-line="242" selection-start-column="39" selection-end-line="242" selection-end-column="39" />
+            <state relative-caret-position="517">
+              <caret line="360" lean-forward="true" selection-start-line="360" selection-end-line="360" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/DataManage.py">
+        <entry file="file://$PROJECT_DIR$/segmentation/segmentation_train.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1394">
-              <caret line="96" selection-start-line="96" selection-end-line="97" selection-end-column="28" />
+            <state relative-caret-position="470">
+              <caret line="116" selection-start-line="116" selection-end-line="116" />
+              <folding>
+                <element signature="e#74#83#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/DataManagement.py">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/VisualizationTool.py">
-          <provider selected="true" editor-type-id="text-editor" />
+        <entry file="file://$PROJECT_DIR$/result/segmentation_config.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state>
+              <caret column="97" selection-start-column="97" selection-end-column="97" />
+            </state>
+          </provider>
         </entry>
       </file>
     </leaf>
@@ -152,7 +124,22 @@
             <path>
               <item name="DeepRad" type="b2602c69:ProjectViewProjectNode" />
               <item name="DeepRad" type="462c0819:PsiDirectoryNode" />
+              <item name="funcs" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="DeepRad" type="b2602c69:ProjectViewProjectNode" />
+              <item name="DeepRad" type="462c0819:PsiDirectoryNode" />
               <item name="include" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="DeepRad" type="b2602c69:ProjectViewProjectNode" />
+              <item name="DeepRad" type="462c0819:PsiDirectoryNode" />
+              <item name="result" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="DeepRad" type="b2602c69:ProjectViewProjectNode" />
+              <item name="DeepRad" type="462c0819:PsiDirectoryNode" />
+              <item name="segmentation" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -299,49 +286,36 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/testfunc.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/visualization.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/DeepRad_classification.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/DeepRad_classification_func.py">
+    <entry file="file://$PROJECT_DIR$/test.py" />
+    <entry file="file://$PROJECT_DIR$/testfunc.py" />
+    <entry file="file://$PROJECT_DIR$/visualization.py" />
+    <entry file="file://$PROJECT_DIR$/DeepRad_classification.py" />
+    <entry file="file://$PROJECT_DIR$/DeepRad_classification_func.py" />
+    <entry file="file://$PROJECT_DIR$/configuration.py" />
+    <entry file="file://$PROJECT_DIR$/DataManage.py" />
+    <entry file="file://$PROJECT_DIR$/DataManagement.py" />
+    <entry file="file://$PROJECT_DIR$/VisualizationTool.py" />
+    <entry file="file://$PROJECT_DIR$/result/segmentation_config.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5219">
-          <caret line="318" column="45" lean-forward="true" selection-start-line="318" selection-start-column="45" selection-end-line="318" selection-end-column="45" />
+        <state>
+          <caret column="97" selection-start-column="97" selection-end-column="97" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/configuration.py">
+    <entry file="file://$PROJECT_DIR$/segmentation/segmentation_train.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="8755">
-          <caret line="516" column="21" selection-start-line="516" selection-start-column="21" selection-end-line="516" selection-end-column="21" />
+        <state relative-caret-position="470">
+          <caret line="116" selection-start-line="116" selection-end-line="116" />
+          <folding>
+            <element signature="e#74#83#0" expanded="true" />
+          </folding>
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/DataManage.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1394">
-          <caret line="96" selection-start-line="96" selection-end-line="97" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/DataManagement.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/VisualizationTool.py">
-      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/data_management/data_management.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="273">
-          <caret line="242" column="39" lean-forward="true" selection-start-line="242" selection-start-column="39" selection-end-line="242" selection-end-column="39" />
+        <state relative-caret-position="517">
+          <caret line="360" lean-forward="true" selection-start-line="360" selection-end-line="360" />
         </state>
       </provider>
     </entry>

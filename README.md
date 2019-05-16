@@ -91,7 +91,7 @@ example:
     │   │   │   ├── truth.nii.gz OR truth.nii or truth.csv   # Labels must be named as "truth"
     │   │   └── ...
     └── ...
-    
+
 example:
 
     data_example
@@ -122,7 +122,7 @@ example:
     │   ├── label                   # Data must be in a folder called "label"
     │   │   ├── <Volume N>          # The name shoule be the same as that in "data" folder
     └── ...
-    
+
 example:
 
     data_example
@@ -143,7 +143,7 @@ example:
     │   ├── label                   # Data must be in a folder called "label"
     │   │   ├── <Volume N>          # The name shoule be the same as that in "data" folder
     └── ...
-    
+
 example:
 
     data_example
@@ -164,7 +164,7 @@ example:
     │   ├── label                   # Data must be in a folder called "label"
     │   │   ├── truth.csv           # The name shoule be "truth.csv"
     └── ...
-    
+
 example:
 
     data_example
@@ -242,7 +242,7 @@ Then we can see a main window. Now click "Quick use" and "Menu" in the top. Clic
     │   │   │   ├── flair.nii.gz
     │   │   │   ├── truth.nii.gz
     └── ...
- 
+
 In **Data Management Tool**, the data directory will be like: 
 ```
  ./DeepRad/Data_folder/train          # must be in "train" folder
@@ -260,11 +260,12 @@ After specifying the directories, we can move to **Normalized to**. Two modes of
    - data /= (data_max - data_min)/(MAX-MIN)
    - data += MIN
    
+
 **Normalization Type** determines how mean/std or data_max/data_min is calcuated. Assume we have 100 volumes, in each volume we have for modalities "t1", "t2", "t1ce", "flair". Each modality has the shape (240, 240, 155).
    - Global: parameters will be calculated among 100\*4\*(240, 240, 155) datasets
    - Per volume: paremeters will be caculated only on each (240, 240, 155) dataset
    - Per slice: paremeters will be calcuated only on each (240, 240) slice.
-   
+
 **Image Shape** is the output dataset shape. Becasue we are using a 3D model to do it, we recommend:
    - row: 64
    - col: 64
@@ -311,112 +312,7 @@ Click **Segmentation** in main window. And we can see 5 steps here. Now we are s
         - weights: Yes. (This is the real model)
         - Tensorboard: Yes. (This is a tensorboard log)
         - logs: Tes. (Settings)
-        
+
 After that, click "Start" to train the model. And we can monitor the training progress.
 
-
-
-
-## Step X. Documentation
-
-In **Quick Use** mode, there are 4 main functions: classification, segmentation, regression, and synthesis. In this mode, it only supports specific types of data, deep learning models, training and evaluation methods. A data management tool is also embedded in DeepRad to preprocess raw data so that they can be directly used in this mode. 
-
-### 1.0 Data Management Tool
-
-Currently, it only supports certain types of data storage.
-
-1. Classification:
-   - Data: single input channel or multiple input channels in 
-
-2. Segmentation:
-
-### 1.1 Classification
-
-Framework: data(nii, hdf5, npy)/label (csv, hdf5, npy; binary or index), model (keras model zoo), training methods (only listed in keras).
-
-### 1.2 Segmentation
-
-Framework: data(nii, hdf5, npy; preprocessed)/truth(nii, hdf5, npy; index), model(Unet2D, Unet3D), training methods(only listed in keras)
-
-#### Configuration Class
-
-```python
-self.config={
-  # Prepare Data
-  'data_folder': "",
-  'modality_t1': True,
-  'modality_t1ce': True,
-  'modality_flair': True,
-  'modality_t2': True,
-  'label_folder': "", # will be removed
-  'is_split': True,
-  'is_validation_folder': False,
-  'is_validation_index': False,
-  'validation_ratio': 0.2,
-  'validation_folder': "",
-  'validation_index': "",
-  'is_resize': True,
-  'resize_row': 256,
-  'resize_col': 256,
-  'resize_channel': 256,
-  
-  # Choose Models
-  'model': "",
-  'input_size_row': 256,
-  'input_size_col': 256,
-  'input_size_channel': 3,
-  'num_class': 2,
-  
-  # Data Augmentation
-  'isDataAug': False,
-  'data_aug_config': {},
-  
-  # Training Configuration
-  'LossConfig': {},
-  'OptimizerConfig': {},
-  'learning_rate': 1e-4,
-  'drop_factor': "",
-  'patience': "",
-  'batch_size_training': 32,
-  'batch_size_validation': "",
-  'epoch': 10,
-  'early_stop': "",
-  
-  # Output Configuration
-  'output_folder': "",
-  'is_file_only': True,
-  'isWeight': False,
-  'isTensorboard': False,
-  'isLogs': False
-}
-```
-
-
-
-### 1.3
-
-
-
-## 2. Developer Mode
-
-In **Developer Mode**, it provides a framework for training and evaluation. Users can replace some of the modules by using their own codes. It will be more flexible and require users have a coding background.
-
-## Q&A
-
-![image-20190512121043729](image/README/image-20190512121043729-7681043.png)
-
-Solutions:
-
-1. Add the following codes in `main.py`
-
-```python
-import os
-os.environ['KMP_DUPLICATE_LIB_OK']='True'
-```
-
-2. Install the following packages
-
-```
-conda install nomkl
-```
 
