@@ -2,11 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="239aef0a-1e22-459f-8aa4-04d63bda25c9" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data_example/data.h5" beforeDir="false" afterPath="$PROJECT_DIR$/data_example/data.h5" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data_management/data_management.py" beforeDir="false" afterPath="$PROJECT_DIR$/data_management/data_management.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/result/segmentation_config.json" beforeDir="false" afterPath="$PROJECT_DIR$/result/segmentation_config.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/result/training_ids.pkl" beforeDir="false" afterPath="$PROJECT_DIR$/result/training_ids.pkl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/funcs/DeepRad_classification_func.py" beforeDir="false" afterPath="$PROJECT_DIR$/funcs/DeepRad_classification_func.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/funcs/DeepRad_segmentation_func.py" beforeDir="false" afterPath="$PROJECT_DIR$/funcs/DeepRad_segmentation_func.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -19,42 +16,60 @@
       <usages-collector id="statistics.lifecycle.project">
         <counts>
           <entry key="project.closed" value="9" />
-          <entry key="project.open.time.1" value="7" />
+          <entry key="project.open.time.1" value="8" />
           <entry key="project.open.time.2" value="2" />
-          <entry key="project.opened" value="9" />
+          <entry key="project.opened" value="10" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="json" value="1" />
-          <entry key="py" value="12" />
+          <entry key="py" value="14" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="JSON" value="1" />
-          <entry key="Python" value="12" />
+          <entry key="Python" value="14" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="py" value="325" />
+          <entry key="py" value="352" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="Python" value="325" />
+          <entry key="Python" value="352" />
         </counts>
       </usages-collector>
     </session>
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/data_management/data_management.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="517">
-              <caret line="360" lean-forward="true" selection-start-line="360" selection-end-line="360" />
+            <state relative-caret-position="432">
+              <caret line="355" column="35" lean-forward="true" selection-start-line="355" selection-start-column="35" selection-end-line="355" selection-end-column="35" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/funcs/DeepRad_segmentation_func.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="239">
+              <caret line="249" column="35" lean-forward="true" selection-start-line="249" selection-start-column="35" selection-end-line="249" selection-end-column="35" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/funcs/DeepRad_classification_func.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="190">
+              <caret line="254" column="13" lean-forward="true" selection-start-line="254" selection-start-column="13" selection-end-line="254" selection-end-column="13" />
             </state>
           </provider>
         </entry>
@@ -62,7 +77,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/segmentation/segmentation_train.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="470">
+            <state relative-caret-position="1955">
               <caret line="116" selection-start-line="116" selection-end-line="116" />
               <folding>
                 <element signature="e#74#83#0" expanded="true" />
@@ -91,6 +106,8 @@
         <option value="$PROJECT_DIR$/DeepRad_classification_func.py" />
         <option value="$PROJECT_DIR$/configuration.py" />
         <option value="$PROJECT_DIR$/data_management/data_management.py" />
+        <option value="$PROJECT_DIR$/funcs/DeepRad_segmentation_func.py" />
+        <option value="$PROJECT_DIR$/funcs/DeepRad_classification_func.py" />
       </list>
     </option>
   </component>
@@ -125,6 +142,11 @@
               <item name="DeepRad" type="b2602c69:ProjectViewProjectNode" />
               <item name="DeepRad" type="462c0819:PsiDirectoryNode" />
               <item name="funcs" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="DeepRad" type="b2602c69:ProjectViewProjectNode" />
+              <item name="DeepRad" type="462c0819:PsiDirectoryNode" />
+              <item name="GUI" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="DeepRad" type="b2602c69:ProjectViewProjectNode" />
@@ -261,7 +283,7 @@
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.21146497" />
+      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.21146497" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -295,16 +317,16 @@
     <entry file="file://$PROJECT_DIR$/DataManage.py" />
     <entry file="file://$PROJECT_DIR$/DataManagement.py" />
     <entry file="file://$PROJECT_DIR$/VisualizationTool.py" />
-    <entry file="file://$PROJECT_DIR$/result/segmentation_config.json">
+    <entry file="file://$PROJECT_DIR$/data_management/data_management.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="97" selection-start-column="97" selection-end-column="97" />
+        <state relative-caret-position="432">
+          <caret line="355" column="35" lean-forward="true" selection-start-line="355" selection-start-column="35" selection-end-line="355" selection-end-column="35" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/segmentation/segmentation_train.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="470">
+        <state relative-caret-position="1955">
           <caret line="116" selection-start-line="116" selection-end-line="116" />
           <folding>
             <element signature="e#74#83#0" expanded="true" />
@@ -312,10 +334,24 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/data_management/data_management.py">
+    <entry file="file://$PROJECT_DIR$/result/segmentation_config.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="517">
-          <caret line="360" lean-forward="true" selection-start-line="360" selection-end-line="360" />
+        <state>
+          <caret column="97" selection-start-column="97" selection-end-column="97" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/funcs/DeepRad_segmentation_func.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="239">
+          <caret line="249" column="35" lean-forward="true" selection-start-line="249" selection-start-column="35" selection-end-line="249" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/funcs/DeepRad_classification_func.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="190">
+          <caret line="254" column="13" lean-forward="true" selection-start-line="254" selection-start-column="13" selection-end-line="254" selection-end-column="13" />
         </state>
       </provider>
     </entry>

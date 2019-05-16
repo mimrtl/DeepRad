@@ -247,7 +247,6 @@ class mainwindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.getValidationAccuracy(message)
         self.getProgressValues(message)
         self.getXYValuesForPlot(message)
-
         self.getStatusInfo(message)
 
     def isContainStatusInfo(self, string):
