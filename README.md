@@ -4,6 +4,7 @@ This project is for the development of software related to medical imaging using
 
 ## Step 0. Installation of Dependency
 python 3.6 is recommended.
+
 Choose a method from (a) or (b) to install the dependent packages.
 ### a. Create a new 'conda' virtual environment **(recommendation)**
 ```
@@ -42,12 +43,239 @@ conda install -c anaconda nomkl
 -->
 
 ## Step 1. Dataset Preparation
+### Folder constructure 
+There are several possible ways to construct folders.
+#### Folder Tree 1
+    .
+    ├── <data folder>
+    │   ├── train                   # Data must be in a folder called "train" 
+    │   │   ├── <Volume N>          # This is customized
+    │   │   │   ├── <Modality M>    # This is customized
+    │   │   │   ├── ...            
+    │   │   │   ├── truth.nii.gz OR truth.nii or truth.csv   # Labels must be named as "truth"
+    │   │   └── ...
+    └── ...
+
+example:
+
+    data_example
+    ├── type1
+    │   ├── train
+    │   │   ├── Brats17_2013_0_1
+    │   │   │   ├── t1.nii.gz
+    │   │   │   ├── t1ce.nii.gz
+    │   │   │   ├── t2.nii.gz
+    │   │   │   ├── flair.nii.gz
+    │   │   │   ├── truth.nii.gz
+    │   │   ├── Brats17_2013_15_1
+    │   │   │   ├── t1.nii.gz
+    │   │   │   ├── t1ce.nii.gz
+    │   │   │   ├── t2.nii.gz
+    │   │   │   ├── flair.nii.gz
+    │   │   │   ├── truth.nii.gz
+    └── ...
+
+#### Folder Tree 2
+    .
+    ├── <data folder>
+    │   ├── data                    # Data must be in a folder called "data"
+    │   │   ├── <Volume N>          # This is customized
+    │   │   │   ├── <Modality M>    # This is customized
+    │   │   │   ├── ...
+    │   ├── label                   # Data must be in a folder called "label"
+    │   │   ├── <Volume N>          # The name shoule be the same as that in "data" folder
+    │   │   │   ├── truth.nii.gz OR truth.nii or truth.csv   # Labels must be named as "truth"
+    │   │   └── ...
+    └── ...
+    
+example:
+
+    data_example
+    ├── type2
+    │   ├── data
+    │   │   ├── Brats17_2013_0_1
+    │   │   │   ├── t1.nii.gz
+    │   │   │   ├── t1ce.nii.gz
+    │   │   │   ├── t2.nii.gz
+    │   │   │   ├── flair.nii.gz
+    │   │   ├── Brats17_2013_15_1
+    │   │   │   ├── t1.nii.gz
+    │   │   │   ├── t1ce.nii.gz
+    │   │   │   ├── t2.nii.gz
+    │   │   │   ├── flair.nii.gz
+    │   ├── label
+    │   │   ├── Brats17_2013_0_1
+    │   │   │   └── truth.nii.gz
+    │   │   ├── Brats17_2013_15_1
+    │   │   │   └── truth.nii.gz
+    └── ...
+
+#### Folder Tree 3 (for synthesis)
+    .
+    ├── <data folder>
+    │   ├── data                    # Data must be in a folder called "data"
+    │   │   ├── <Volume N>          # This is customized
+    │   ├── label                   # Data must be in a folder called "label"
+    │   │   ├── <Volume N>          # The name shoule be the same as that in "data" folder
+    └── ...
+    
+example:
+
+    data_example
+    ├── type3
+    │   ├── data
+    │   │   ├── Brats17_2013_0_1.nii.gz
+    │   │   ├── Brats17_2013_15_1.nii.gz
+    │   ├── label
+    │   │   ├── Brats17_2013_0_1.nii.gz
+    │   │   ├── Brats17_2013_15_1.nii.gz
+    └── ...
+
+#### Folder Tree 4 (for classification)
+    .
+    ├── <data folder>
+    │   ├── data                    # Data must be in a folder called "data"
+    │   │   ├── <Volume N>          # This is customized
+    │   ├── label                   # Data must be in a folder called "label"
+    │   │   ├── <Volume N>          # The name shoule be the same as that in "data" folder
+    └── ...
+    
+example:
+
+    data_example
+    ├── type4
+    │   ├── data
+    │   │   ├── Brats17_2013_0_1.nii.gz
+    │   │   ├── Brats17_2013_15_1.nii.gz
+    │   ├── label
+    │   │   ├── Brats17_2013_0_1.nii.csv
+    │   │   ├── Brats17_2013_15_1.nii.csv
+    └── ...
+
+#### Folder Tree 5 (for classification)
+    .
+    ├── <data folder>
+    │   ├── data                    # Data must be in a folder called "data"
+    │   │   ├── <Volume N>          # This is customized
+    │   ├── label                   # Data must be in a folder called "label"
+    │   │   ├── truth.csv           # The name shoule be "truth.csv"
+    └── ...
+    
+example:
+
+    data_example
+    ├── type5
+    │   ├── data
+    │   │   ├── Brats17_2013_0_1.nii.gz
+    │   │   ├── Brats17_2013_15_1.nii.gz
+    │   ├── label
+    │   │   ├── truth.csv
+    └── ...
+
+### A tool of helping rename "truth"
+Because **DeepRad** asks all labels named as "truth", a tool is provided to make it easier. Assume all folders are constucted as "type1" above.
+
+    .
+    ├── Data_folder                    # File name "Data_folder" is required.
+    │   ├── train                      # File name "train" is required.
+    │   │   ├── Brats17_2013_0_1
+    │   │   │   ├── t1.nii.gz
+    │   │   │   ├── t1ce.nii.gz
+    │   │   │   ├── t2.nii.gz
+    │   │   │   ├── flair.nii.gz
+    │   │   │   ├── seg.nii.gz
+    │   │   ├── Brats17_2013_15_1
+    │   │   │   ├── t1.nii.gz
+    │   │   │   ├── t1ce.nii.gz
+    │   │   │   ├── t2.nii.gz
+    │   │   │   ├── flair.nii.gz
+    │   │   │   ├── seg.nii.gz
+    └── ...
+
+However, there are like 100 volumes to be trained but all segmentation results are named as "seg". Now, run the following code in the root.
+```
+python rename.py --seg_name seg
+```
+The parameter "--seg_name" is a common part of name in all files we want to change to "truth". After running this code, the folders will be like:
+
+    .
+    ├── Data_folder                    # File name "Data_folder" is required.
+    │   ├── train                      # File name "train" is required.
+    │   │   ├── Brats17_2013_0_1
+    │   │   │   ├── t1.nii.gz
+    │   │   │   ├── t1ce.nii.gz
+    │   │   │   ├── t2.nii.gz
+    │   │   │   ├── flair.nii.gz
+    │   │   │   ├── truth.nii.gz
+    │   │   ├── Brats17_2013_15_1
+    │   │   │   ├── t1.nii.gz
+    │   │   │   ├── t1ce.nii.gz
+    │   │   │   ├── t2.nii.gz
+    │   │   │   ├── flair.nii.gz
+    │   │   │   ├── truth.nii.gz
+    └── ...
+### Converting data into hdf5 format.
 **DeepRad** provides a tool to load the dataset and convert it as .hdf5 files, for better compatibility for huge dataset. 
 To open **DeepRad**, follow **step 0** to install the dependent packages and run the following code in the **DeepRad** folder:
 ```
 python main.py
 ```
+Then we can see a main window. Now click "Quick use" and "Menu" in the top. Click "Data Management Tool" Assume we have the following folder constructure.
 
+    .
+    ├── Data_folder                    # File name "Data_folder" is required.
+    │   ├── train                      # File name "train" is required.
+    │   │   ├── Brats17_2013_0_1
+    │   │   │   ├── t1.nii.gz
+    │   │   │   ├── t1ce.nii.gz
+    │   │   │   ├── t2.nii.gz
+    │   │   │   ├── flair.nii.gz
+    │   │   │   ├── truth.nii.gz
+    │   │   ├── Brats17_2013_15_1
+    │   │   │   ├── t1.nii.gz
+    │   │   │   ├── t1ce.nii.gz
+    │   │   │   ├── t2.nii.gz
+    │   │   │   ├── flair.nii.gz
+    │   │   │   ├── truth.nii.gz
+    └── ...
+ 
+In **Data Management Tool**, the data directory will be like: 
+```
+ ./DeepRad/Data_folder/train          # must be in "train" folder
+```
+And we can specify the output directory like:
+```
+ ./DeepRad/Data_folder
+```
+After specifying the directories, we can move to **Normalized to**. Two modes of normalization is provided: Standard and Interval.
+1. Standard (Z-score)
+   - data = (data / mean) / std
+   - mean and std is calculated on all values, not only non-zeros values
+2. Interval
+   - data -= data_min
+   - data /= (data_max - data_min)/(MAX-MIN)
+   - data += MIN
+   
+**Normalization Type** determines how mean/std or data_max/data_min is calcuated. Assume we have 100 volumes, in each volume we have for modalities "t1", "t2", "t1ce", "flair". Each modality has the shape (240, 240, 155).
+   - Global: parameters will be calculated among 100\*4\*(240, 240, 155) datasets
+   - Per volume: paremeters will be caculated only on each (240, 240, 155) dataset
+   - Per slice: paremeters will be calcuated only on each (240, 240) slice.
+   
+**Image Shape** is the output dataset shape. We recommend the orginal datashape, like above dataset, will be
+   - row: 240
+   - col: 240
+   - channel: 155
+
+The right part is a preview tool to see our dataset. It can **only work** if we specify the volume path, like:
+```
+ ./DeepRad/Data_folder/train/Brats18_2013_1_1
+```
+
+After setting parameters, click **Convert**. Attention: it may take a few minutes, don't click other things or there will be several unknow bugs. We can see a "data.hdf5" in our path, like:
+```
+ ./DeepRad/Data_folder/train/data.hdf5
+```
+## Step 1. Dataset Preparation
 
 
 ## 1. Quick Use
@@ -71,9 +299,62 @@ Framework: data(nii, hdf5, npy)/label (csv, hdf5, npy; binary or index), model (
 
 Framework: data(nii, hdf5, npy; preprocessed)/truth(nii, hdf5, npy; index), model(Unet2D, Unet3D), training methods(only listed in keras)
 
+#### Configuration Class
+
+```python
+self.config={
+  # Prepare Data
+  'data_folder': "",
+  'modality_t1': True,
+  'modality_t1ce': True,
+  'modality_flair': True,
+  'modality_t2': True,
+  'label_folder': "", # will be removed
+  'is_split': True,
+  'is_validation_folder': False,
+  'is_validation_index': False,
+  'validation_ratio': 0.2,
+  'validation_folder': "",
+  'validation_index': "",
+  'is_resize': True,
+  'resize_row': 256,
+  'resize_col': 256,
+  'resize_channel': 256,
+  
+  # Choose Models
+  'model': "",
+  'input_size_row': 256,
+  'input_size_col': 256,
+  'input_size_channel': 3,
+  'num_class': 2,
+  
+  # Data Augmentation
+  'isDataAug': False,
+  'data_aug_config': {},
+  
+  # Training Configuration
+  'LossConfig': {},
+  'OptimizerConfig': {},
+  'learning_rate': 1e-4,
+  'drop_factor': "",
+  'patience': "",
+  'batch_size_training': 32,
+  'batch_size_validation': "",
+  'epoch': 10,
+  'early_stop': "",
+  
+  # Output Configuration
+  'output_folder': "",
+  'is_file_only': True,
+  'isWeight': False,
+  'isTensorboard': False,
+  'isLogs': False
+}
+```
 
 
 
+### 1.3
 
 
 
