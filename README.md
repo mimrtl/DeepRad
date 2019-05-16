@@ -306,7 +306,7 @@ Click **Segmentation** in main window. And we can see 5 steps here. Now we are s
         - Training data: 8
     - Epoch: (We can fill as many as want)
 ### 5. Output configuration
-    - Folder paht: (The folder path we want to save the results)
+    - Folder path: (The folder path we want to save the results)
     - Configuration file only: Not (if clicks, only a configuration file will be saved)
     - Training output:
         - weights: Yes. (This is the real model)
