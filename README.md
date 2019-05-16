@@ -6,16 +6,15 @@ This project is for the development of software related to medical imaging using
 python 3.6 is recommended.
 
 Choose a method from (a) or (b) to install the dependent packages.
-### a. Create a new 'conda' virtual environment **(recommendation)**
+### a. Install dependeny one by one
 ```
-conda env create --name DeepRad --file requirements.yml
-```
-### b. Install dependeny one by one
-```
-conda install -c anaconda tensorflow-gpu (for GPU user)
-conda install -c anaconda tensorflow (for CPU user)
+(for GPU user)
+conda install -c anaconda tensorflow-gpu
 conda install -c anaconda keras-gpu 
-conda install -c conda-forge pyqt 
+(for CPU user)
+conda install -c anaconda tensorflow 
+conda install -c anaconda keras
+(common package)
 conda install -c conda-forge pillow 
 conda install -c conda-forge opencv 
 conda install -c conda-forge nibabel
@@ -23,7 +22,8 @@ conda install -c conda-forge qimage2ndarray
 conda install -c simpleitk simpleitk
 conda install -c conda-forge nilearn
 conda install -c conda-forge pytables
-conda install -c anaconda nomkl 
+conda install -c anaconda nomkl
+pip install git+https://www.github.com/farizrahman4u/keras-contrib.git
 ```
 <!---
 <> **Directly use conda**
@@ -40,6 +40,10 @@ conda install -c anaconda nomkl
 <>nilearn
 <>**pip**
 <>tables
+### a. Create a new 'conda' virtual environment **(recommendation)**
+```
+conda env create --name DeepRad --file requirements.yml
+```
 -->
 
 ## Step 1. Dataset Preparation
@@ -261,10 +265,10 @@ After specifying the directories, we can move to **Normalized to**. Two modes of
    - Per volume: paremeters will be caculated only on each (240, 240, 155) dataset
    - Per slice: paremeters will be calcuated only on each (240, 240) slice.
    
-**Image Shape** is the output dataset shape. We recommend the orginal datashape, like above dataset, will be
-   - row: 240
-   - col: 240
-   - channel: 155
+**Image Shape** is the output dataset shape. Becasue we are using a 3D model to do it, we recommend:
+   - row: 64
+   - col: 64
+   - channel: 64
 
 The right part is a preview tool to see our dataset. It can **only work** if we specify the volume path, like:
 ```
@@ -275,10 +279,42 @@ After setting parameters, click **Convert**. Attention: it may take a few minute
 ```
  ./DeepRad/Data_folder/train/data.hdf5
 ```
-## Step 1. Dataset Preparation
+## Step 2. Main function (Take seg)
+
+Click **Segmentation** in main window. And we can see 5 steps here. Now we are sharing the recommendation setting, and use the default setting if not mentioned.
+
+### 1. Prepare Data
+    - Data folder: ./DeepRad/Data_folder/train/data.hdf5
+    - Validation data ratio: 0
+    - Resize image to:
+        - Row: 64
+        - Col: 64
+        - Channel: 64
+### 2. Choose Models
+    - isensee2017
+    - Image channel size: 64 
+    - Number of labels: 4
+### 3. Data Augmentatiton
+    - Enable: Not
+### 4. Training Configuration
+    - Batch size:
+        - Training data: 9
+        - Validation data: (Don't fill anything here)
+    - Epoch: (We can fill as many as want)
+### 5. Output configuration
+    - Folder paht: (The folder path we want to save the results)
+    - Configuration file only: Not (if clicks, only a configuration file will be saved)
+    - Training output:
+        - weights: Yes. (This is the real model)
+        - Tensorboard: Yes. (This is a tensorboard log)
+        - logs: Tes. (Settings)
+        
+After that, click "Start" to train the model. And we can monitor the training progress.
 
 
-## 1. Quick Use
+
+
+## Step X. Documentation
 
 In **Quick Use** mode, there are 4 main functions: classification, segmentation, regression, and synthesis. In this mode, it only supports specific types of data, deep learning models, training and evaluation methods. A data management tool is also embedded in DeepRad to preprocess raw data so that they can be directly used in this mode. 
 
