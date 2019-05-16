@@ -318,7 +318,7 @@ class DataManagementClass(object):
 
 
 if __name__ == '__main__':
-    data = DataManagementClass('/Users/zhangjinnian/Documents/UWmadison/1Project/DeepRad/data_example/type1/train',
+    data = DataManagementClass('/Users/zhangjinnian/Documents/UWmadison/1Project/DeepRad/data_example/type2',
                           '../data',
                           (128, 128, 128),
                           normalization_mode="standard")
