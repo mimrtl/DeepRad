@@ -319,4 +319,5 @@ Click **Segmentation** in main window. And we can see 5 steps here. Now we are s
 
 After that, click "Start" to train the model. And we can monitor the training progress.
 
+![Visualization](/tools/DeepRad.png)
 
