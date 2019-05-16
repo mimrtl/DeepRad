@@ -99,7 +99,7 @@
         </rect>
        </property>
        <property name="text">
-        <string>0.2</string>
+        <string>0.0</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -275,7 +275,7 @@
         <enum>Qt::LeftToRight</enum>
        </property>
        <property name="text">
-        <string>256</string>
+        <string>128</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -320,7 +320,7 @@
         <enum>Qt::LeftToRight</enum>
        </property>
        <property name="text">
-        <string>256</string>
+        <string>128</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -352,7 +352,7 @@
         <enum>Qt::LeftToRight</enum>
        </property>
        <property name="text">
-        <string>256</string>
+        <string>128</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -401,16 +401,6 @@
          <string>isensee2017</string>
         </property>
        </item>
-       <item>
-        <property name="text">
-         <string>UNet2D</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>UNet3D</string>
-        </property>
-       </item>
       </widget>
       <widget class="QLineEdit" name="lineEdit_4">
        <property name="geometry">
@@ -425,7 +415,7 @@
         <enum>Qt::LeftToRight</enum>
        </property>
        <property name="text">
-        <string>256</string>
+        <string>128</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -477,7 +467,7 @@
         </rect>
        </property>
        <property name="text">
-        <string>256</string>
+        <string>128</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -511,7 +501,7 @@
         </rect>
        </property>
        <property name="text">
-        <string>3</string>
+        <string>128</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -1098,7 +1088,7 @@
         <string>Configuration file only</string>
        </property>
        <property name="checked">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
       </widget>
      </widget>
