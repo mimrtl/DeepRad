@@ -2,8 +2,8 @@
 import sys
 sys.path.append("..")
 from keras.models import load_model
-from keras.optimizers import Adam
-from keras.callbacks import ModelCheckpoint, CSVLogger, LearningRateScheduler, ReduceLROnPlateau, EarlyStopping, TerminateOnNaN
+from keras import optimizers
+from keras.callbacks import ModelCheckpoint, CSVLogger, LearningRateScheduler, ReduceLROnPlateau, EarlyStopping, TerminateOnNaN, TensorBoard
 import math
 from functools import partial
 
@@ -14,7 +14,21 @@ from .metrics import (dice_coef, dice_coef_loss, dice_coefficient, dice_coeffici
 
 def getOptimizer(optimizer, learning_rate, optimizer_config):
     if optimizer == "Adam":
-        return Adam(lr=learning_rate)
+        return optimizers.Adam(lr=learning_rate)
+    elif optimizer == "SGD":
+        return optimizers.SGD(lr=learning_rate)
+    elif optimizer == "RMSprop":
+        return optimizers.RMSprop(lr=learning_rate)
+    elif optimizer == "Adagrad":
+        return optimizers.Adagrad(lr=learning_rate)
+    elif optimizer == "Adadelta":
+        return optimizers.Adadelta(lr=learning_rate)
+    elif optimizer == "Adamax":
+        return optimizers.Adamax(lr=learning_rate)
+    elif optimizer == "Nadam":
+        return optimizers.Nadam(lr=learning_rate)
+    else:
+        raise ValueError("Fail to recognize optimizer: %s"%optimizer)
 
 def getLossFunction(loss, loss_config):
     if loss.lower() == "dice_coefficient_loss" or loss.lower() == "dice loss":
@@ -31,12 +45,12 @@ def getLossFunction(loss, loss_config):
 def stepDecay(epoch, initial_lrate, drop, epochs_drop):
     return initial_lrate * math.pow(drop, math.floor((1+epoch)/float(epochs_drop)))
 
-def getCallbacks(model_file, initial_learning_rate=0.0001, learning_rate_drop=0.5, learning_rate_epochs=None,
-                  learning_rate_patience=50, logging_file="./training.log", verbosity=1,
+def getCallbacks(model_file, save_best_only=True, initial_learning_rate=0.0001, learning_rate_drop=0.5, learning_rate_epochs=None,
+                  learning_rate_patience=50, logging_file="./training.log", tensorboard_log_dir='./logs', verbosity=1,
                   early_stopping_patience=None, isTrainingLogs=False, isTensorboard=False):
     callbacks = list()
     callbacks.append(TerminateOnNaN())
-    callbacks.append(ModelCheckpoint(model_file, save_best_only=True))
+    callbacks.append(ModelCheckpoint(model_file, save_best_only=save_best_only))
     if isTrainingLogs:
         callbacks.append(CSVLogger(logging_file, append=True))
     if learning_rate_epochs:
@@ -45,11 +59,13 @@ def getCallbacks(model_file, initial_learning_rate=0.0001, learning_rate_drop=0.
     '''else:
         callbacks.append(ReduceLROnPlateau(factor=learning_rate_drop, patience=learning_rate_patience,
                                            verbose=verbosity))'''
+    if isTensorboard:
+        callbacks.append(TensorBoard(log_dir=tensorboard_log_dir))
     if early_stopping_patience:
         callbacks.append(EarlyStopping(verbose=verbosity, patience=early_stopping_patience))
     return callbacks
 
-def createModel(config_class, model_type):
+def createModel(config_class, input_shape, model_type):
     optimizer = getOptimizer(config_class.config["OptimizerConfig"]["optimizer"],
                              learning_rate=config_class.config["learning_rate"],
                              optimizer_config=config_class.config["OptimizerConfig"])
@@ -58,7 +74,7 @@ def createModel(config_class, model_type):
     #print(model_type is 'isensee2017')
     #print(model_type == 'isensee2017')
     if model_type == 'isensee2017':
-        model = isensee2017_model(input_shape=config_class.getInputDataShape(),
+        model = isensee2017_model(input_shape=input_shape,
                                   n_labels=config_class.config["num_class"])
     else:
         raise ValueError(" 'Model' should be chosen from the model library. '{}' is not recognized".format(
@@ -92,7 +108,7 @@ def loadOldModel(model_file):
 def trainModel(model, model_file, training_generator, validation_generator, steps_per_epoch, validation_steps,
                 initial_learning_rate=0.001, learning_rate_drop=0.5, learning_rate_epochs=None, n_epochs=500,
                 learning_rate_patience=20, early_stopping_patience=None, isTrainingLogs=False, TrainingLogs=None,
-               isTensorboard=False):
+               isTensorboard=False, tensorboard_log_dir="./logs"):
     """
     Train a Keras model.
     :param early_stopping_patience: If set, training will end early if the validation loss does not improve after the
@@ -113,6 +129,10 @@ def trainModel(model, model_file, training_generator, validation_generator, step
     """
     if training_generator is None:
         raise ValueError("No training data is detected!")
+    if validation_generator is None:
+        save_best_only = False
+    else:
+        save_best_only = True
 
     model.fit_generator(generator=training_generator,
                         steps_per_epoch=steps_per_epoch,
@@ -121,10 +141,13 @@ def trainModel(model, model_file, training_generator, validation_generator, step
                         validation_steps=validation_steps,
                         use_multiprocessing=True,
                         callbacks=getCallbacks(model_file,
+                                               save_best_only=save_best_only,
                                                 initial_learning_rate=initial_learning_rate,
                                                 learning_rate_drop=learning_rate_drop,
                                                 learning_rate_epochs=learning_rate_epochs,
                                                 learning_rate_patience=learning_rate_patience,
                                                 early_stopping_patience=early_stopping_patience,
                                                isTrainingLogs=isTrainingLogs,
-                                               logging_file=TrainingLogs))
+                                               logging_file=TrainingLogs,
+                                               isTensorboard=isTensorboard,
+                                               tensorboard_log_dir=tensorboard_log_dir))

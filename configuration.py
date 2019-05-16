@@ -5,6 +5,7 @@ import os
 ERROR_INFO_COLLECTION = {
     ## Prepare Data
     'input_folder': 'Step 1: data folder path does not exist!',
+    'input_path': 'Step 1: data file does not exist!',
     'modality_used': 'Step 1: at least one modality should be chosen!',
     'label_folder': 'Step 1: label folder path does not exist!',
     'validation_ratio': 'Step 1: validation ratio should be a real number in [0, 1)!',
@@ -74,7 +75,6 @@ class Config_Segmentation(object):
     # self.config['modality_flair'] = True
     # self.config['modality_t2'] = True
     #
-    # self.config['label_folder'] = ""
     # self.config['is_split'] = True
     # self.config['is_validation_folder'] = False
     # self.config['is_validation_index'] = False
@@ -173,7 +173,7 @@ class Config_Segmentation(object):
         return [self.config['is_split'], self.config['is_validation_folder'], self.config['is_validation_index']]
 
     def getValidationMode(self):
-        return VALIDATIONMODES[self.getListOfAllModalityStatus().index(True)]
+        return VALIDATIONMODES[self.getListOfAllValidationModes().index(True)]
 
     def initializeConfigCheckResult(self):
         self.is_valid_config = True
@@ -214,10 +214,10 @@ class Config_Segmentation(object):
         return (len(self.config['OptimizerConfig']) is 0)
 
     def checkPrepareDataConfig(self):
-        if not isValidPath(self.config['data_folder']):
-            self.check_result += [ERROR_INFO_COLLECTION['input_folder']]
-        if isAllFalseMultiChoice(self.getListOfAllModalityStatus()):
-            self.check_result += [ERROR_INFO_COLLECTION['modality_used']]
+        if not isValidPath(self.config['data_file_path']):
+            self.check_result += [ERROR_INFO_COLLECTION['input_path']]
+        #if isAllFalseMultiChoice(self.getListOfAllModalityStatus()):
+        #    self.check_result += [ERROR_INFO_COLLECTION['modality_used']]
         #if not isValidPath(self.config["label_folder"]):
         #    self.check_result += [ERROR_INFO_COLLECTION['label_folder']]
         if self.config["is_split"]:
@@ -451,10 +451,10 @@ class Config_Classification(object):
         return (len(self.config['OptimizerConfig']) is 0)
 
     def checkPrepareDataConfig(self):
-        if not isValidPath(self.config['data_folder']):
-            self.check_result += [ERROR_INFO_COLLECTION['input_folder']]
-        if isAllFalseMultiChoice(self.getListOfAllModalityStatus()):
-            self.check_result += [ERROR_INFO_COLLECTION['modality_used']]
+        if not isValidPath(self.config['data_file_path']):
+            self.check_result += [ERROR_INFO_COLLECTION['data_path']]
+        #if isAllFalseMultiChoice(self.getListOfAllModalityStatus()):
+        #    self.check_result += [ERROR_INFO_COLLECTION['modality_used']]
         #if not isValidPath(self.config["label_folder"]):
         #    self.check_result += [ERROR_INFO_COLLECTION['label_folder']]
         if self.config["is_split"]:

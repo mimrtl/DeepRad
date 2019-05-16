@@ -69,7 +69,8 @@ class mainwindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.pushButton_8.clicked.connect(self.openLossDialog)
         self.pushButton_9.clicked.connect(self.openOptimizerDialog)
 
-        self.pushButton.clicked.connect(self.setDataFolderPath)
+        #self.pushButton.clicked.connect(self.setDataFolderPath)
+        self.pushButton.clicked.connect(self.setDataFilePath)
         self.pushButton_6.clicked.connect(self.setValidationFolderPath)
         self.pushButton_7.clicked.connect(self.setValidationIndexFolderPath)
         self.pushButton_4.clicked.connect(self.setOutputFolderPath)
@@ -84,6 +85,11 @@ class mainwindow(QtWidgets.QMainWindow, Ui_MainWindow):
 
     def showImageCol(self):
         self.lineEdit_5.setText(self.lineEdit_19.text())
+
+    def setDataFilePath(self):
+        data_path, file_type= QtWidgets.QFileDialog.getOpenFileName(self)
+        if isinstance(data_path, str):
+            self.lineEdit_8.setText(data_path)
 
     def setDataFolderPath(self):
         download_path = QtWidgets.QFileDialog.getExistingDirectory(self)
@@ -321,15 +327,15 @@ class mainwindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.getCurrentOutputConfigFromGUI()
 
     def getCurrentPrepareDataConfigFromGUI(self):
-        self.config_segmentation.config['data_folder'] = self.lineEdit_8.text()
-        self.config_segmentation.config['modality_t1'] = self.checkBox_5.isChecked()
-        self.config_segmentation.config['modality_t1ce'] = self.checkBox_6.isChecked()
-        self.config_segmentation.config['modality_flair'] = self.checkBox_7.isChecked()
-        self.config_segmentation.config['modality_t2'] = self.checkBox_8.isChecked()
+        self.config_segmentation.config['data_file_path'] = self.lineEdit_8.text()
+        #self.config_segmentation.config['modality_t1'] = self.checkBox_5.isChecked()
+        #self.config_segmentation.config['modality_t1ce'] = self.checkBox_6.isChecked()
+        #self.config_segmentation.config['modality_flair'] = self.checkBox_7.isChecked()
+        #self.config_segmentation.config['modality_t2'] = self.checkBox_8.isChecked()
         #self.config_segmentation.config['label_folder'] = self.lineEdit_11.text()
         self.config_segmentation.config['is_split'] = self.radioButton.isChecked()
         self.config_segmentation.config['is_validation_folder'] = self.radioButton_2.isChecked()
-        self.config_segmentation.config['is_valid_index'] = self.radioButton_3.isChecked()
+        self.config_segmentation.config['is_validation_index'] = self.radioButton_3.isChecked()
         self.config_segmentation.config['validation_ratio'] = self.lineEdit_10.text()
         self.config_segmentation.config['validation_folder'] = self.lineEdit_12.text()
         self.config_segmentation.config['validation_index'] = self.lineEdit_13.text()

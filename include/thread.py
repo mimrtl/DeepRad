@@ -20,8 +20,8 @@ class SegmentationTrain(QtCore.QObject):
         self.finished.emit(str(self.thread_index))
 
     def trainingFunc(self):
-        #train(self.config_class)
-        testfunc.mnist_cnn_config(self.config_class)
+        train(self.config_class)
+        #testfunc.mnist_cnn_config(self.config_class)
 
 class ClassificationTrain(QtCore.QObject):
     finished = QtCore.pyqtSignal(str)

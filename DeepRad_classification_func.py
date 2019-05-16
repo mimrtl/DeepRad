@@ -69,7 +69,8 @@ class mainwindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.pushButton_8.clicked.connect(self.openLossDialog)
         self.pushButton_9.clicked.connect(self.openOptimizerDialog)
 
-        self.pushButton.clicked.connect(self.setDataFolderPath)
+        #self.pushButton.clicked.connect(self.setDataFolderPath)
+        self.pushButton.clicked.connect(self.setDataFilePath)
         self.pushButton_6.clicked.connect(self.setValidationFolderPath)
         self.pushButton_7.clicked.connect(self.setValidationIndexFolderPath)
         self.pushButton_4.clicked.connect(self.setOutputFolderPath)
@@ -84,6 +85,11 @@ class mainwindow(QtWidgets.QMainWindow, Ui_MainWindow):
 
     def showImageCol(self):
         self.lineEdit_5.setText(self.lineEdit_19.text())
+
+    def setDataFilePath(self):
+        data_path = QtWidgets.QFileDialog.getOpenFileName(self)
+        if isinstance(data_path, str):
+            self.lineEdit_8.setText(data_path)
 
     def setDataFolderPath(self):
         download_path = QtWidgets.QFileDialog.getExistingDirectory(self)
