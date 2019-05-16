@@ -145,15 +145,23 @@ def readCSV(in_file):
     with open(in_file, "r") as csvfile:
         readCSV = csv.reader(csvfile, delimiter=',')
         for row in readCSV:
+            try:
+                row = np.asarray(row).astype(np.int32)
+            except:
+                continue
             labels.append(row)
-    return np.squeeze(labels)
+    return np.squeeze(np.asarray(labels))
 
 def readDictFromCSV(in_file):
     labels = dict()
     with open(in_file, "r") as csvfile:
         readCSV = csv.reader(csvfile, delimiter=',')
         for row in readCSV:
-            labels[row[0]] = np.asarray(row[1:])
+            try:
+                label = np.asarray(row[1:]).astype(np.int32)
+            except:
+                continue
+            labels[row[0]] = np.squeeze(label)
     return labels
 
 def fixShape(image):

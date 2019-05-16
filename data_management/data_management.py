@@ -49,14 +49,14 @@ class DataManagementClass(object):
         self.label_storage_type = 0
         self.label_format = 'csv'''''
 
-    def fetchJointDataAndLabelType1(self, data_and_label, subject_dir):
+    def fetchJointDataAndLabelType1(self, data_and_label, subject_dir, bias=0):
         scan_name = os.path.basename(subject_dir).split(".nii.gz")[0]
         subject_files = glob.glob(os.path.join(subject_dir, "*"))
 
         if self.num_modalities is None:
-            self.num_modalities = len(subject_files) - 1
+            self.num_modalities = len(subject_files) - 1 + bias
         else:
-            if self.num_modalities != len(subject_files) - 1:
+            if self.num_modalities != len(subject_files) - 1 + bias:
                 self.error_message = "Folder %s contains different number of files" %subject_dir
                 raise ValueError("Error")
 
@@ -154,12 +154,12 @@ class DataManagementClass(object):
         data_and_label["truth"] = dict()
 
         dir_indicator = None
-        for subject_dir in glob.glob(os.path.join(self._data_path, "*")):
+        for subject_dir in glob.glob(os.path.join(self._data_path, "data", "*")):
             if dir_indicator is None:
                 dir_indicator = os.path.isdir(subject_dir)
 
             if dir_indicator:
-                data_and_label = self.fetchJointDataAndLabelType1(data_and_label, subject_dir)
+                data_and_label = self.fetchJointDataAndLabelType1(data_and_label, subject_dir, bias=1)
             else:
                 data_and_label = self.fetchJointDataAndLabelType2(data_and_label, subject_dir)
 
@@ -167,26 +167,46 @@ class DataManagementClass(object):
 
     def fetchLabelFiles(self):
         label_files = glob.glob(os.path.join(self._data_path, "label", "*"))
-        if len(label_files) == 1:
-            self.data_and_label["truth"] = label_files[0]
-        for file in label_files:
-            file_name = os.path.basename(file)
-            if self.label_format is None:
-                if ".nii" in file_name:
-                    self.label_format = "nii"
-                elif ".csv" in file_name:
-                    self.label_format = "csv"
+        if os.path.isdir(label_files[0]):
+            for folder in label_files:
+                scan_name = os.path.basename(folder)
+                file_name = os.path.basename(glob.glob(os.path.join(folder, "*"))[0])
+                if self.label_format is None:
+                    if ".nii" in file_name:
+                        self.label_format = "nii"
+                    elif ".csv" in file_name:
+                        self.label_format = "csv"
+                    else:
+                        self.error_message = "Unknown label format: %s" % file_name
+                        raise ValueError("Unknown label format")
                 else:
-                    self.error_message = "Unknown label format: %s"%file_name
-                    raise ValueError("Error")
+                    if not (self.label_format in file_name):
+                        self.error_message = "Multiple label formats have been detected: %s"%file_name
+                        raise ValueError("Multiple label formats have been detected")
+                self.data_and_label["truth"][scan_name] = glob.glob(os.path.join(folder, "*"))[0]
+        else:
+            if (len(label_files) == 1) and os.path.isfile(label_files[0]):
+                self.data_and_label["truth"] = label_files[0]
+                self.label_format = "csv"
             else:
-                if not (self.label_format in file_name):
-                    self.error_message = "Multiple label formats have been detected: %s"%file_name
-                    raise ValueError("Error")
-            scan_name = file_name.split("."+self.label_format)[0]
-            self.data_and_label["truth"][scan_name] = file
+                for file in label_files:
+                    file_name = os.path.basename(file)
+                    if self.label_format is None:
+                        if ".nii" in file_name:
+                            self.label_format = "nii"
+                        elif ".csv" in file_name:
+                            self.label_format = "csv"
+                        else:
+                            self.error_message = "Unknown label format: %s"%file_name
+                            raise ValueError("Error")
+                    else:
+                        if not (self.label_format in file_name):
+                            self.error_message = "Multiple label formats have been detected: %s"%file_name
+                            raise ValueError("Error")
+                    scan_name = file_name.split("."+self.label_format)[0]
+                    self.data_and_label["truth"][scan_name] = file
         if isinstance(self.data_and_label["truth"], dict):
-            if not (self.data_and_label["data"].keys() == self.data_and_label["truth"]):
+            if not (self.data_and_label["data"].keys() == self.data_and_label["truth"].keys()):
                 self.error_message = "The training data does not match the label data!"
                 raise  ValueError("Error")
 
@@ -212,8 +232,10 @@ class DataManagementClass(object):
 
     def detectTypeOfDataStorage(self):
         folder_list = glob.glob(os.path.join(self._data_path, "*"))
-        if len(folder_list) == 2 and (self._data_folder_name in folder_list) and (self._label_folder_name in folder_list):
-            self.label_separate_storage = True
+        if len(folder_list) == 2:
+            folder_name = [os.path.basename(folder_list[0]), os.path.basename(folder_list[1])]
+            if (self._data_folder_name in folder_name) and (self._label_folder_name in folder_name):
+                self.label_separate_storage = True
         else:
             self.label_separate_storage = False
 
@@ -225,7 +247,7 @@ class DataManagementClass(object):
         if not status:
             self.error_message = \
                 "Failed to fetch data files!\nPlease follow right way to store data in the tutorial "
-            raise ValueError("Error!")
+            raise ValueError("Failed to fetch data files!")
 
 
     '''def fetchDataFiles(self):
@@ -242,11 +264,19 @@ class DataManagementClass(object):
             hdf5_file = tables.open_file(out_file_path, mode='w')
             filters = tables.Filters(complevel=5, complib='blosc')
             data_shape = tuple([0, self.num_modalities] + list(self._image_shape))
-            truth_shape = tuple([0, 1] + list(self._image_shape))
             data_storage = hdf5_file.create_earray(hdf5_file.root, 'data', tables.Float32Atom(), shape=data_shape,
                                                    filters=filters, expectedrows=self.num_modalities)
-            truth_storage = hdf5_file.create_earray(hdf5_file.root, 'truth', tables.UInt8Atom(), shape=truth_shape,
+            if self.label_format == "nii":
+                truth_shape = tuple([0, 1] + list(self._image_shape))
+                truth_storage = hdf5_file.create_earray(hdf5_file.root, 'truth', tables.UInt8Atom(), shape=truth_shape,
                                                     filters=filters, expectedrows=self.num_modalities)
+            elif self.label_format == 'csv':
+                truth_shape = tuple([0, self._image_shape[-1]])
+                truth_storage = hdf5_file.create_earray(hdf5_file.root, 'truth', tables.UInt32Atom(), shape=truth_shape,
+                                                        filters = filters, expectedrows=self.num_modalities)
+            else:
+                raise ValueError("Fail to recognize label format: %s"%self.label_format)
+
             affine_storage = hdf5_file.create_earray(hdf5_file.root, 'affine', tables.Float32Atom(), shape=(0, 4, 4),
                                                      filters=filters, expectedrows=self.num_modalities)
             return hdf5_file, data_storage, truth_storage, affine_storage
@@ -286,9 +316,16 @@ class DataManagementClass(object):
                     truth_storage.append(np.asarray(image.get_data())[np.newaxis][np.newaxis])
                 if self.label_format == 'csv':
                     labels = readCSV(self.data_and_label["truth"][scan_name])
-                    truth_storage.append(labels)
+                    if labels.size == 1:
+                        labels = np.repeat(labels, self._image_shape[-1])
+
+                    truth_storage.append(labels[np.newaxis])
             else:
-                truth_storage.append(labels[scan_name])
+                if labels[scan_name].size == 1:
+                    label = np.repeat(labels[scan_name], self._image_shape[-1])
+                else:
+                    label = labels[scan_name]
+                truth_storage.append(label[np.newaxis])
 
         hdf5_file.create_array(hdf5_file.root, 'subject_ids', obj=subject_ids)
 
@@ -318,8 +355,8 @@ class DataManagementClass(object):
 
 
 if __name__ == '__main__':
-    data = DataManagementClass('/Users/zhangjinnian/Documents/UWmadison/1Project/DeepRad/data_example/type2',
-                          '../data',
+    data = DataManagementClass('/Users/zhangjinnian/Documents/UWmadison/1Project/DeepRad/data_example/type1/train',
+                          '../data_example',
                           (128, 128, 128),
                           normalization_mode="standard")
     data.startConvert()
