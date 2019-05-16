@@ -6,6 +6,7 @@ from keras import optimizers
 from keras.callbacks import ModelCheckpoint, CSVLogger, LearningRateScheduler, ReduceLROnPlateau, EarlyStopping, TerminateOnNaN, TensorBoard
 import math
 from functools import partial
+from keras import applications
 
 from model_zoo.isensee2017 import isensee2017_model
 from .metrics import (dice_coef, dice_coef_loss, dice_coefficient, dice_coefficient_loss,
@@ -76,6 +77,9 @@ def createModel(config_class, input_shape, model_type):
     if model_type == 'isensee2017':
         model = isensee2017_model(input_shape=input_shape,
                                   n_labels=config_class.config["num_class"])
+    #elif model_type == 'VGG16':
+    #    model = applications.vgg16.VGG16(include_top=False, input_shape=input_shape,
+    #                                     classes)
     else:
         raise ValueError(" 'Model' should be chosen from the model library. '{}' is not recognized".format(
             model_type))

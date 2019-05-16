@@ -37,6 +37,7 @@ class DataManagementClass(object):
         self.label_format = None  # 'csv' or 'nifty'
         self.label_separate_storage = None  #
         self.num_modalities = None
+        self.used_modalities_name = None
 
         self.error_message = None
 
@@ -294,6 +295,10 @@ class DataManagementClass(object):
             ## subject id
             subject_ids.append(scan_name)
 
+            ## Modalities name
+            if self.used_modalities_name is None:
+                self.used_modalities_name = list(self.data_and_label["data"][scan_name].keys())
+
             ## data
             image_list = list()
             for modality in self._modalities_name:
@@ -328,6 +333,7 @@ class DataManagementClass(object):
                 truth_storage.append(label[np.newaxis])
 
         hdf5_file.create_array(hdf5_file.root, 'subject_ids', obj=subject_ids)
+        hdf5_file.create_array(hdf5_file.root, 'used_modalities', obj = self.used_modalities_name)
 
 
     def normalizeData(self, data_storage):
@@ -346,7 +352,6 @@ class DataManagementClass(object):
         self.normalizeData(data_storage)
         hdf5_file.close()
 
-
     def startConvert(self):
         self.initializeParameters()
         self.detectTypeOfDataStorage()
@@ -356,8 +361,8 @@ class DataManagementClass(object):
 
 if __name__ == '__main__':
     data = DataManagementClass('/Users/zhangjinnian/Documents/UWmadison/1Project/DeepRad/data_example/type1/train',
-                          '../data_example',
+                          '../data',
                           (128, 128, 128),
-                          normalization_mode="standard")
+                          normalization_mode="interval")
     data.startConvert()
     print("Done!")

@@ -3,7 +3,7 @@
 from PyQt5 import QtCore, QtWidgets
 
 from segmentation.segmentation_train import train
-import testfunc
+from funcs import testfunc
 
 
 class SegmentationTrain(QtCore.QObject):
