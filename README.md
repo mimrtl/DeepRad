@@ -71,62 +71,9 @@ Framework: data(nii, hdf5, npy)/label (csv, hdf5, npy; binary or index), model (
 
 Framework: data(nii, hdf5, npy; preprocessed)/truth(nii, hdf5, npy; index), model(Unet2D, Unet3D), training methods(only listed in keras)
 
-#### Configuration Class
-
-```python
-self.config={
-  # Prepare Data
-  'data_folder': "",
-  'modality_t1': True,
-  'modality_t1ce': True,
-  'modality_flair': True,
-  'modality_t2': True,
-  'label_folder': "", # will be removed
-  'is_split': True,
-  'is_validation_folder': False,
-  'is_validation_index': False,
-  'validation_ratio': 0.2,
-  'validation_folder': "",
-  'validation_index': "",
-  'is_resize': True,
-  'resize_row': 256,
-  'resize_col': 256,
-  'resize_channel': 256,
-  
-  # Choose Models
-  'model': "",
-  'input_size_row': 256,
-  'input_size_col': 256,
-  'input_size_channel': 3,
-  'num_class': 2,
-  
-  # Data Augmentation
-  'isDataAug': False,
-  'data_aug_config': {},
-  
-  # Training Configuration
-  'LossConfig': {},
-  'OptimizerConfig': {},
-  'learning_rate': 1e-4,
-  'drop_factor': "",
-  'patience': "",
-  'batch_size_training': 32,
-  'batch_size_validation': "",
-  'epoch': 10,
-  'early_stop': "",
-  
-  # Output Configuration
-  'output_folder': "",
-  'is_file_only': True,
-  'isWeight': False,
-  'isTensorboard': False,
-  'isLogs': False
-}
-```
 
 
 
-### 1.3
 
 
 
