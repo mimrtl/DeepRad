@@ -16,7 +16,7 @@ class mainwindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.setAttribute(QtCore.Qt.WA_DeleteOnClose)
 
     def setupMain(self):
-        self.pushButton.clicked.connect(self.openClassification)
+        #self.pushButton.clicked.connect(self.openClassification)
         self.pushButton.setIcon(QtGui.QIcon('./image/classification.png'))
         self.pushButton.setIconSize(QtCore.QSize(171, 171))
 
