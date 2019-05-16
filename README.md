@@ -2,7 +2,8 @@
 
 This project is for the development of software related to medical imaging using deep learning. DeepRad has two different modes (quick use and developer mode), which are for different goals and researchers with different level of programming.
 
-## 0. Requirements
+## Step 0. Installation of Dependency
+python 3.6 is recommended.
 Choose a method from (a) or (b) to install the dependent packages.
 ### a. Create a new 'conda' virtual environment **(recommendation)**
 ```
@@ -39,6 +40,15 @@ conda install -c anaconda nomkl
 <>**pip**
 <>tables
 -->
+
+## Step 1. Dataset Preparation
+**DeepRad** provides a tool to load the dataset and convert it as .hdf5 files, for better compatibility for huge dataset. 
+To open **DeepRad**, follow **step 0** to install the dependent packages and run the following code in the **DeepRad** folder:
+```
+python main.py
+```
+
+
 
 ## 1. Quick Use
 
