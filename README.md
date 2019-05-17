@@ -4,6 +4,10 @@ This project is for the development of software related to medical imaging using
 
 
 
+DeepRad features large scale training with CNN, e.g. there are more than 10k volumes of scan. Loading these dataset directly into memory may cause out-of-memory (OOM) error. Hierarchical Data Format (HDF) is a collection of file formats (HDF4, HDF5) that is designed to store and organize large amounts of data. DeepRad provides **data management tool** to help users convert data to HDF5 file. During training process in DeepRad, only the batch of data will be loaded to memory from the hard driver where dataset is stored. Since all processes can be done in GUI, DeepRad is also friendly to people who are not familiar with coding.
+
+
+
 This is the first version of the DeepRad. Currently we support the training process of 3D segmentation. We will add more features to make DeepRad more powerful.
 
 ## Step 0. Installation of Dependency
