@@ -33,6 +33,11 @@ conda install -c conda-forge pytables
 conda install -c anaconda nomkl
 pip install git+https://www.github.com/farizrahman4u/keras-contrib.git
 ```
+### b. Using the Installation.sh
+Run the installation.sh. It may take for a while (~15 min).
+```
+bash installtion.sh
+```
 <!---
 <> **Directly use conda**
 <>tensorflow
