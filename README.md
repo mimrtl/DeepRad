@@ -14,7 +14,12 @@ This is the first version of the DeepRad. Currently we support the training proc
 python 3.6 is recommended.
 
 Choose a method from (a) or (b) to install the dependent packages.
-### a. Install dependeny one by one
+### a. Use anaconda cloud
+```
+conda install -c mimrtl deeprad_env 
+```
+
+### b. Install dependeny one by one
 ```
 (for GPU user)
 conda install -c anaconda tensorflow-gpu
@@ -33,7 +38,7 @@ conda install -c conda-forge pytables
 conda install -c anaconda nomkl
 pip install git+https://www.github.com/farizrahman4u/keras-contrib.git
 ```
-### b. Using the Installation.sh
+### c. Using the Installation.sh
 Run the installation.sh. It may take for a while (~15 min).
 ```
 bash installation.sh
