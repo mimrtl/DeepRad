@@ -46,8 +46,16 @@ def normalizeToInterval(data_storage, min_value=None, max_value=None, normalizat
         data_storage += min_value
 
     elif normalization_range == 'per_volume':
-        data_min = np.min(data_storage, axis=4, keepdims=True)
-        data_max = np.max(data_storage, axis=4, keepdims=True)
+        data_min = np.min(data_storage, axis=(1,2,3,4), keepdims=True)
+        data_max = np.max(data_storage, axis=(1,2,3,4), keepdims=True)
+
+        data_storage -= data_min
+        data_storage /= (data_max - data_min) / (max_value - min_value)
+        data_storage += min_value
+
+    elif normalization_range == 'per_modality':
+        data_min = np.min(data_storage, axis=(2,3,4), keepdims=True)
+        data_max = np.max(data_storage, axis=(2,3,4), keepdims=True)
 
         data_storage -= data_min
         data_storage /= (data_max - data_min) / (max_value - min_value)
@@ -56,6 +64,7 @@ def normalizeToInterval(data_storage, min_value=None, max_value=None, normalizat
     else:
         print("Fail to recognize normalization range: %s" % normalization_range)
         Warning("The data has not been normalized!")
+    return data_storage
 
 
 def normalizeToStandardDistribution(data_storage, normalization_range='global'):
@@ -80,7 +89,15 @@ def normalizeToStandardDistribution(data_storage, normalization_range='global'):
         data_storage -= mean
         data_storage /= std
 
+    elif normalization_range == 'per_modality':
+        mean = np.mean(data_storage, axis=(2,3,4), keepdims=True)
+        std = np.std(data_storage, axis=(2,3,4), keepdims=True)
+
+        data_storage -= mean
+        data_storage /= std
+
     else:
         print("Fail to recognize normalization range: %s"%normalization_range)
         Warning("The data has not been normalized!")
+    return data_storage
 
