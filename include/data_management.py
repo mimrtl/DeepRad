@@ -22,7 +22,7 @@ class DataManagementClass(object):
                                                 # ANTs(Advanced Normalization Tools) will be used
         self._data_path = data_path
         self._output_path = output_path
-        self._output_file_name = "data_"+normalization_mode+".h5"
+        self._output_file_name = "data.h5" if normalization_mode is None else "data_"+normalization_mode+".h5"
 
 
         self._data_folder_name = "data"
@@ -341,9 +341,7 @@ class DataManagementClass(object):
 
 
     def normalizeData(self, data_storage):
-        if self._normalization_mode is None:
-            pass
-        elif self._normalization_mode == "interval":
+        if self._normalization_mode == "interval":
             data_storage = normalizeToInterval(data_storage, self._interval_min_value, self._interval_max_value)
         elif self._normalization_mode == "standard":
             data_storage = normalizeToStandardDistribution(data_storage)
@@ -356,8 +354,8 @@ class DataManagementClass(object):
     def writeDataToFile(self):
         hdf5_file, data_storage, truth_storage, affine_storage = self.createHDF5File()
         self.addDataToStorage(hdf5_file, data_storage, truth_storage, affine_storage)
-        data_storage[...] = self.normalizeData(data_storage)
-        print(np.max(data_storage))
+        if self._normalization_mode is not None:
+            data_storage[...] = self.normalizeData(data_storage)
         hdf5_file.close()
 
     def startConvert(self):
@@ -375,7 +373,8 @@ if __name__ == '__main__':
     data = DataManagementClass('../../data/type1/train',
                           '../../data',
                           (128, 128, 128),
-                          normalization_range="per_modality",
-                          normalization_mode="interval")
+                          #normalization_range="per_modality",
+                          #normalization_mode="interval"
+                          )
     data.startConvert()
     print("Done!")
