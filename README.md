@@ -294,10 +294,21 @@ The right part is a preview tool to see our dataset. It can **only work** if we 
  ./DeepRad/Data_folder/train/Brats18_2013_1_1
 ```
 
-After setting parameters, click **Convert**. Attention: it may take a few minutes, don't click other things or there will be several unknow bugs. We can see a "data.hdf5" in our path, like:
+After setting parameters, click **Convert**. Attention: it may take a few minutes, don't click other things or there will be several unknow bugs. We can see a "data\$_(normalization_type)\$.hdf5" in our path, like:
 ```
- ./DeepRad/Data_folder/train/data.hdf5
+ ./DeepRad/Data_folder/train/data.hdf5 #No normalization is performed
 ```
+The resulting HDF5 file consists of a group "root", in which there are 5 children:
+
+```python
+>>> import tables
+>>> data = tables.open_file("./data.hdf5", "r")
+>>> data.root
+
+/ (RootGrup) ''
+children := ['affine' (EArray), 'data' (EArray), 'subject_ids' (Array), 'truth' (EArray), 'used_modalities'(Array)]
+```
+
 ## Step 2. Main function (Take segmentation as an example)
 
 Testing environment: 16G memory and GTX 1080 GPU and test 5 volume of Brats 2018 dataset.
