@@ -10,7 +10,7 @@ import nibabel
 import numpy as np
 import qimage2ndarray as q2n
 import h5py
-
+import tables
 from GUI.DataManagement import Ui_MainWindow
 from funcs.data_management_messagebox import DataManageMessageBox
 import funcs.dataUtilities as du
@@ -50,6 +50,7 @@ class mainwindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.pushButton_7.clicked.connect(self.setOutputPath)
         self.pushButton_8.clicked.connect(self.convertData)
         self.pushButton_10.clicked.connect(self.rotate)
+        self.pushButton_11.clicked.connect(self.back)
 
         self.comboBox.activated.connect(self.chooseFile)
         self.comboBox_4.activated.connect(self.chooseSliceOrient)
@@ -65,6 +66,13 @@ class mainwindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.slice_orient = 'Axial'
         self.current_file_name = ''
         self.rotate_degree = 0
+        self.image = None
+
+        self.download_path = None
+        self.current_file_name = None
+        self.is_HDF5_file = False
+        self.data_file_opened = None
+        self.id_table = dict()
 
     def activateMinMaxConfiguration(self):
         if self.comboBox_3.currentText() == "None":
@@ -214,13 +222,77 @@ class mainwindow(QtWidgets.QMainWindow, Ui_MainWindow):
         # qimage = QtGui.QImage(qimage_tmp, qimage_tmp.shape[0], qimage_tmp.shape[1], QtGui.QImage.Format_RGB32)
         p = QtGui.QPixmap.fromImage(qimage)
         item = QtWidgets.QGraphicsPixmapItem(p)
-        item.setScale(1)
+        shape = qimage_tmp.shape
+        item.setScale(240.0/max(shape))
         item.setTransformOriginPoint(120, 120)
         item.setRotation(self.rotate_degree * 90)
         self.graphicsView.scene.addItem(item)
         self.graphicsView.setScene(self.graphicsView.scene)
 
+    def back(self):
+        if self.is_HDF5_file:
+            self.data_file_opened.close()
+            self.data_file_opened = None
+            self.id_table = dict()
+            self.getAllEligibleFiles()
+            self.is_HDF5_file = False
+
     def loadandUpdateFile(self, filename):
+        if filename.split('.')[-1] == 'h5':
+            self.loadandUpdateHDF5File(filename)
+        else:
+            self.loadandUpdateNiiFile(filename)
+
+    def loadandUpdateHDF5File(self, filename):
+        self.is_HDF5_file = True
+        full_name = os.path.join(self.download_path, filename)
+        self.data_file_opened = tables.open_file(full_name, "r")
+        self.getAllSubjects()
+        self.loadDataInHDF5File()
+
+    def loadDataInHDF5File(self):
+        data_file = self.data_file_opened
+        id_table = self.id_table
+        [subject_index, modality_index] = id_table[self.current_file_name]
+        self.image = np.array(data_file.root.data[subject_index, modality_index, :, :, :])
+        if self.slice_orient == 'Axial':
+            self.image = self.image.transpose([2, 0, 1])
+        elif self.slice_orient == 'Coronal':
+            self.image = self.image.transpose([1, 2, 0])
+        else:
+            pass
+        self.normalizeCurrentData()
+        self.showImageInformation()
+
+    def normalizeCurrentData(self):
+        data = self.image
+        max_value = data.max()
+        min_value = data.min()
+        data -= min_value
+        data /= (max_value - min_value)
+        data = np.floor(data * 255).astype('int')
+        self.image = data
+
+    def getAllSubjects(self):
+        data_file = self.data_file_opened
+        included_modalities = [x.decode('utf-8') for x in data_file.root.included_modalities]
+        subject_ids = [str(x) for x in data_file.root.subject_ids]
+        num_subjects = len(included_modalities) * len(subject_ids)
+        defaultFile = None
+        self.comboBox.clear()
+        for index in range(num_subjects):
+            subject_index = index // len(included_modalities)
+            modality_index = index % len(included_modalities)
+            name = subject_ids[subject_index] + '_' + included_modalities[modality_index]
+            if defaultFile is None:
+                defaultFile = name
+            self.id_table[name] = [subject_index, modality_index]
+            self.textBrowser.append(name)
+            self.comboBox.addItem(name)
+        self.current_file_name = defaultFile
+        self.textBrowser.append('-' * 60)
+
+    def loadandUpdateNiiFile(self, filename):
         image_raw = nibabel.load(filename)
         if self.slice_orient == 'Axial':
             image = du.resliceToAxial(image_raw.get_data())
@@ -234,8 +306,11 @@ class mainwindow(QtWidgets.QMainWindow, Ui_MainWindow):
         image /= image.max()
         image = du.get25DImage(image, 1)
         image = np.floor(image * 255).astype('int')
-        image = np.flipud(image)
-        self.image = image
+        self.image = np.flipud(image)
+        self.showImageInformation()
+
+    def showImageInformation(self):
+        image = self.image
         self.numImagePerVolume = image.shape[0]
         self.index = int(image.shape[0]/2)
         self.label_3.setText('%d of %d' % (self.index, self.numImagePerVolume))
@@ -259,11 +334,17 @@ class mainwindow(QtWidgets.QMainWindow, Ui_MainWindow):
         # Set comboBox
             #if not os.path.exists(download_path):
             #    QtWidgets.QMessageBox.critical(self, "Error", '\nFolder does not exist!')
-        files = glob.glob(os.path.join(self.download_path, '*.nii.gz'))
+        # files = glob.glob(os.path.join(self.download_path, '*.nii.gz'))
+        self.getAllEligibleFiles()
+
+    def getAllEligibleFiles(self):
+        files = glob.glob(os.path.join(self.download_path, '*.nii*'))
+        files += glob.glob(os.path.join(self.download_path, '*.h5'))
         self.textBrowser.append('The input folder is:')
         self.textBrowser.append(self.download_path)
         self.textBrowser.append('loading...')
-        self.textBrowser.append('-'*60)
+        self.textBrowser.append('-' * 60)
+        self.comboBox.clear()
         if len(files) > 0:
             for file in files:
                 name = file.split('/')[-1]
@@ -271,14 +352,15 @@ class mainwindow(QtWidgets.QMainWindow, Ui_MainWindow):
                 self.comboBox.addItem(name)
             self.textBrowser.append('-' * 60)
             defaultFile = files[0]
-            self.current_file_name = defaultFile
-            self.loadandUpdateFile(defaultFile)
-
-            # Show images in Qgraphics
-            self.showSlice()
+            if defaultFile.split('.')[-1] != 'h5':
+                self.current_file_name = defaultFile
+                self.loadandUpdateFile(defaultFile)
+                # Show images in Qgraphics
+                self.showSlice()
         else:
             self.textBrowser.append('No NifTi files are found in this folder!')
             self.textBrowser.append('-' * 60)
+        return files
 
     def setOutputPath(self):
         self.output_path = QtWidgets.QFileDialog.getExistingDirectory(self)
@@ -294,10 +376,14 @@ class mainwindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.textBrowser.append('loading...')
         self.textBrowser.append(self.comboBox.currentText())
 
-        # Load and show slices
-        filename = os.path.join(self.download_path, self.comboBox.currentText())
-        self.current_file_name = filename
-        self.loadandUpdateFile(filename)
+        if self.is_HDF5_file:
+            self.current_file_name = self.comboBox.currentText()
+            self.loadDataInHDF5File()
+        else:
+            # Load and show slices
+            filename = os.path.join(self.download_path, self.comboBox.currentText())
+            self.current_file_name = filename
+            self.loadandUpdateFile(filename)
 
         # Show images in Qgraphics
         self.rotate_degree = 0
@@ -310,10 +396,13 @@ class mainwindow(QtWidgets.QMainWindow, Ui_MainWindow):
 
     def chooseSliceOrient(self):
         self.slice_orient = self.comboBox_4.currentText()
-        if os.path.exists(self.current_file_name):
-            self.loadandUpdateFile(self.current_file_name)
-            self.rotate_degree = 0
-            self.showSlice()
+        if self.is_HDF5_file:
+            self.loadDataInHDF5File()
+        else:
+            if os.path.exists(self.current_file_name):
+                self.loadandUpdateFile(self.current_file_name)
+        self.rotate_degree = 0
+        self.showSlice()
 
     def nextSlice(self):
         if self.numImagePerVolume > 0:
